@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class CardCollection {
 
-    ArrayList<Card> cards;
+    private ArrayList<Card> cards;
 
     public CardCollection(ArrayList<Card> cards) {
         this.cards = cards;

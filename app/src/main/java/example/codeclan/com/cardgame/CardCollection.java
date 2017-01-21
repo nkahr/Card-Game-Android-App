@@ -1,6 +1,7 @@
 package example.codeclan.com.cardgame;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by user on 21/01/2017.
@@ -32,5 +33,9 @@ public class CardCollection {
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    public void shuffle() {
+        Collections.shuffle(cards);
     }
 }

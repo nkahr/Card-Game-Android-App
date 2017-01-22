@@ -14,6 +14,7 @@
         android:id="@+id/initial_deal_button_id"
         android:text="@string/deal_text"
         android:onClick="onInitialDealButtonPressed"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
@@ -23,11 +24,12 @@
         android:id="@+id/initial_card_1_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:visibility="invisible"
         android:adjustViewBounds="true"
         android:maxWidth="100dp"
         android:maxHeight="100dp"
         android:scaleType="fitCenter"
+        android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
         android:src="@drawable/ace_of_spades" />
 
@@ -35,11 +37,61 @@
         android:id="@+id/initial_card_2_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:adjustViewBounds="true"
         android:maxWidth="100dp"
         android:maxHeight="100dp"
         android:scaleType="fitCenter"
+        android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
-        android:src="@drawable/queen_of_clubs" />
+        android:src="@drawable/ace_of_spades" />
+
+    <ImageView
+        android:id="@+id/dealer_card_1_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:src="@drawable/back" />
+
+    <ImageView
+        android:id="@+id/dealer_card_2_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:src="@drawable/ace_of_spades" />
+
+    <Button
+        android:id="@+id/hit_button_id"
+        android:text="@string/hit_text"
+        android:onClick="onHitButtonPressed"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/stick_button_id"
+        android:text="@string/stick_text"
+        android:onClick="onStickButtonPressed"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
 
 </LinearLayout>

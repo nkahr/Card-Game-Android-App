@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,48 +20,101 @@ public class BlackjackActivity extends AppCompatActivity{
 
     Button initialDealButton;
     TextView yourCardsTextView;
-    ImageView firstCardImageView;
-    ImageView secondCardImageView;
     String playerName;
     Game game;
+    Player player;
+    Player dealer;
+    ImageView firstCardImageView;
+    ImageView secondCardImageView;
+
+    ImageView dealerFaceDown;
+    ImageView dealerFaceUp;
+
+    Button hitButton;
+    Button stickButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.blackjack_layout);
+        setContentView(R.layout.blackjack_layout); //set content view - still not sure what this does
 
+
+        Log.d(getClass().toString(), "\n\nonCreate was called in blackjack activity\n\n");
+
+        //both of these should show up immediately in the blackjack activity
         initialDealButton = (Button) findViewById(R.id.initial_deal_button_id);
         yourCardsTextView = (TextView) findViewById(R.id.your_cards_text_view_id);
 
+        // create hit/stick button variables in order to make them invisible
+        hitButton = (Button)findViewById(R.id.hit_button_id);
+        stickButton = (Button)findViewById(R.id.stick_button_id);
+        hitButton.setVisibility(View.INVISIBLE);
+        stickButton.setVisibility(View.INVISIBLE);
+
+        //get intent to get player name
         Intent playBlackjackIntent = getIntent();
         Bundle extras = playBlackjackIntent.getExtras();
-
         playerName = extras.getString("player_name");
 
+        //set textview to greet the player using the name passed by the intent
         yourCardsTextView.setText("Hi " + playerName + ", press 'deal' to start a game of blackjack.");
-    }
 
-    public void onInitialDealButtonPressed(View view) {
-
-        //make a new game object
-        Player dealer = new Player("Dealer");
-        Player player = new Player(playerName);
+        //create a game object
+        dealer = new Player("Dealer");
+        player = new Player(playerName);
         ArrayList<Player> players = new ArrayList<>();
         players.add(player);
         players.add(dealer);
         game = new Blackjack(players);
-        System.out.println(game.getPlayers().size());
-        game.setupDeck();
-        game.dealMultiple(2);
+        game.setupGame();
+    }
 
+    public void onInitialDealButtonPressed(View view) {
+
+        Log.d(getClass().toString(), "\n\ndeal button was clicked\n\n");
+
+//        System.out.println(game.getPlayers().size());
+//        game.dealMultiple(2);
+
+        // get image id for the three images that will then be applied to the ImageViews
         int imageId1 = getResources().getIdentifier(player.getHand().getCards().get(0).getImgLink(), "drawable", this.getPackageName());
         int imageId2 = getResources().getIdentifier(player.getHand().getCards().get(1).getImgLink(), "drawable", this.getPackageName());
+        int dealerImageId = getResources().getIdentifier(dealer.getHand().getCards().get(1).getImgLink(), "drawable", this.getPackageName());
 
+        //get variables for all four cards
         firstCardImageView = (ImageView) findViewById(R.id.initial_card_1_id);
         secondCardImageView = (ImageView) findViewById(R.id.initial_card_2_id);
+        dealerFaceDown = (ImageView) findViewById(R.id.dealer_card_1_id);
+        dealerFaceUp = (ImageView) findViewById(R.id.dealer_card_2_id);
 
+        //apply imageIDs to ImageViews
         firstCardImageView.setImageResource(imageId1);
         secondCardImageView.setImageResource(imageId2);
+        dealerFaceUp.setImageResource(dealerImageId);
+
+        //change visibility of things (make cards visible and deal button invisible)
+        firstCardImageView.setVisibility(View.VISIBLE);
+        secondCardImageView.setVisibility(View.VISIBLE);
+        dealerFaceUp.setVisibility(View.VISIBLE);
+        dealerFaceDown.setVisibility(View.VISIBLE);
+        initialDealButton.setVisibility(View.INVISIBLE);
+        hitButton.setVisibility(View.VISIBLE);
+        stickButton.setVisibility(View.VISIBLE);
+
+        Log.d(getClass().toString(), "player: " + player.getHand().getCards().get(0).getRank() +
+                " and " + player.getHand().getCards().get(1).getRank());
+        Log.d(getClass().toString(), "dealer: " + dealer.getHand().getCards().get(0).getRank() +
+                " and " + dealer.getHand().getCards().get(1).getRank());
+
+    }
+
+    public void onHitButtonPressed(View view) {
+
+
+
+    }
+
+    public void onStickButtonPressed(View view) {
 
     }
 }

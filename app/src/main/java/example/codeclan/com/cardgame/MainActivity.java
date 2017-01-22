@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity{
 
         playBlackjackIntent = new Intent(MainActivity.this, BlackjackActivity.class);
 
-        Log.d(getClass().toString(), "/nONCREATE WAS CALLED");
+        Log.d(getClass().toString(), "\n\nonCreate was called in main activity\n\n");
     }
 
     //listener

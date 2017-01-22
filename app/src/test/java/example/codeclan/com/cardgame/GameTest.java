@@ -58,10 +58,18 @@ public class GameTest {
         assertEquals(52, game.getDeck().getNumberOfCards());
     }
 
+    //made setupScoreMap() private so this doesn't work anymore
+//    @Test
+//    public void canSetUpScoreMap() {
+//        blackjackgame.setupScoreMap();
+//        assertEquals(2, (int) blackjackgame.getScoreMap().get(StandardRank.TWO));
+//    }
+
     @Test
-    public void canSetUpBlackjackDeck() {
-        blackjackgame.setupDeck();
-        assertEquals(52, blackjackgame.getDeck().getNumberOfCards());
+    public void canPlayBlackjack() {
+        game.play();
+//        Integer four = new Integer(4);
+//        assertEquals(four, game.getScoreMap().get(StandardRank.FOUR));
     }
 
 }

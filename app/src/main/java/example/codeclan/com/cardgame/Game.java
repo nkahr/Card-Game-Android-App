@@ -38,17 +38,34 @@ public abstract class Game {
         this.players = players;
     }
 
-    private void deal() {
+    public void dealCardToPlayer(Player player) {
+        Card cardFromDeck = deck.removeFirstCard();
+        player.addCardToHand(cardFromDeck);
+    }
+
+    protected void deal() {
         for (Player player : players) {
             Card cardFromDeck = deck.removeFirstCard();
             player.addCardToHand(cardFromDeck);
         }
     }
 
-    public void dealMultiple(int numberOfCards) {
+    protected void dealMultiple(int numberOfCards) {
         for (int i = 0; i < numberOfCards; i++) {
             deal();
         }
+    }
+
+    public HashMap<Player, Integer> getPlayerScores() {
+        HashMap<Player, Integer> playerScores = new HashMap<>();
+        for (Player p : players) {
+            Integer pScore = 0;
+            for (Card card : p.getHand().getCards()) {
+                pScore += scoreMap.get(card.getRank());
+            }
+            playerScores.put(p, pScore);
+        }
+        return playerScores;
     }
 
 
@@ -77,6 +94,8 @@ public abstract class Game {
     public HashMap<Rank,Integer> getScoreMap() {
         return scoreMap;
     }
+
+    public abstract Player checkForWinner();
 
 //    public void play() {
 //        setupDeck();

@@ -87,8 +87,24 @@ public class GameTest {
         CardCollection dealersHand = players.get(1).getHand();
         int numberOfCardsInDealersHand = dealersHand.getNumberOfCards();
         assertEquals(2, numberOfCardsInDealersHand);
-
     }
+
+    @Test
+    public void canDealCardToPlayer() {
+        game.setupGame();
+        game.dealCardToPlayer(player);
+        CardCollection playersHand = players.get(0).getHand();
+        int numberOfCardsInHand = playersHand.getNumberOfCards();
+        assertEquals(3, numberOfCardsInHand);
+    }
+
+    @Test
+    public void canGetPlayersScoresHashMap() {
+        game.setupGame();
+        assertNotNull(game.getPlayerScores());
+        assertNotEquals(new HashMap<Player, Integer>(), game.getPlayerScores());
+    }
+
 
 
 

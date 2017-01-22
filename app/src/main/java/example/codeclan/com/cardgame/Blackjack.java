@@ -3,6 +3,7 @@ package example.codeclan.com.cardgame;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 
 /**
  * Created by user on 21/01/2017.
@@ -11,6 +12,10 @@ import java.util.HashMap;
 public class Blackjack extends Game {
 
     private boolean alreadySetUp;
+    private Player player;
+    private Player dealer;
+//    private int playerScore;
+//    private int dealerScore;
 //    private ArrayList<Player> players;
 //    private CardCollection deck;
 //    private HashMap<Rank, Integer> scoreMap = new HashMap<>();
@@ -18,10 +23,18 @@ public class Blackjack extends Game {
 
     public Blackjack(ArrayList<Player> players) {
         super(players);
+        player = players.get(0);
+        dealer = players.get(1);
+//        playerScore = 0;
+//        dealerScore = 0;
     }
 
     public Blackjack() {
         super();
+        player = players.get(0);
+        dealer = players.get(1);
+//        playerScore = 0;
+//        dealerScore = 0;
 //        this.players = new ArrayList<>();
     }
 
@@ -33,6 +46,50 @@ public class Blackjack extends Game {
             alreadySetUp = true;
         }
     }
+
+    public Player checkForWinner() {
+        HashMap<Player, Integer> playerScoresMap = getPlayerScores();
+        int playerScore = playerScoresMap.get(player);
+        int dealerScore = playerScoresMap.get(dealer);
+
+        if (playerScore == dealerScore) {
+            return null;
+        }
+
+        if (playerScore > 21) {
+            if (dealerScore <= 21) {
+                return dealer;
+            } else {
+                return null;
+            }
+        }
+
+        if (playerScore <= 21) {
+            if (dealerScore > 21) {
+                return player;
+            }
+            if (dealerScore <= 21 && dealerScore > playerScore) {
+                return dealer;
+            }
+            if (dealerScore <= 21 && dealerScore < playerScore) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+
+//    @Override
+//    protected void deal() {
+//        super.deal();
+//        updateScores();
+//    }
+//
+//    @Override
+//    protected void dealMultiple(int numberOfCards) {
+//        super.dealMultiple(numberOfCards);
+//        updateScores();
+//    }
 
 //    public HashMap<Rank,Integer> getScoreMap() {
 //        return scoreMap;
@@ -57,6 +114,16 @@ public class Blackjack extends Game {
         scoreMap.put(StandardRank.QUEEN, 10);
         scoreMap.put(StandardRank.KING, 10);
     }
+
+//    public void updateScores() {
+//
+//        for (Card card : player.getHand().getCards()) {
+//            playerScore += scoreMap.get(card.getRank());
+//        }
+//        for (Card card : dealer.getHand().getCards()) {
+//            dealerScore += scoreMap.get(card.getRank());
+//        }
+//    }
 
 //    @Override
 //    public void play() {

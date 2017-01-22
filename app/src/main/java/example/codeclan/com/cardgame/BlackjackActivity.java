@@ -26,6 +26,8 @@ public class BlackjackActivity extends AppCompatActivity{
     Player dealer;
     ImageView firstCardImageView;
     ImageView secondCardImageView;
+    TextView playerComment;
+    TextView dealerComment;
 
     ImageView dealerFaceDown;
     ImageView dealerFaceUp;
@@ -98,6 +100,7 @@ public class BlackjackActivity extends AppCompatActivity{
         dealerFaceUp.setVisibility(View.VISIBLE);
         dealerFaceDown.setVisibility(View.VISIBLE);
         initialDealButton.setVisibility(View.INVISIBLE);
+        yourCardsTextView.setVisibility(View.INVISIBLE);
         hitButton.setVisibility(View.VISIBLE);
         stickButton.setVisibility(View.VISIBLE);
 
@@ -109,12 +112,12 @@ public class BlackjackActivity extends AppCompatActivity{
     }
 
     public void onHitButtonPressed(View view) {
-
+        game.dealCardToPlayer(player);
 
 
     }
 
     public void onStickButtonPressed(View view) {
-
+        game.checkForWinner();
     }
 }

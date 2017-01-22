@@ -10,9 +10,11 @@ import java.util.HashMap;
 
 public class Blackjack extends Game {
 
+    private boolean alreadySetUp;
 //    private ArrayList<Player> players;
 //    private CardCollection deck;
 //    private HashMap<Rank, Integer> scoreMap = new HashMap<>();
+
 
     public Blackjack(ArrayList<Player> players) {
         super(players);
@@ -21,13 +23,20 @@ public class Blackjack extends Game {
     public Blackjack() {
         super();
 //        this.players = new ArrayList<>();
-
     }
 
-
-    public HashMap<Rank,Integer> getScoreMap() {
-        return scoreMap;
+    public void setupGame() {
+        if(!alreadySetUp) {
+            setupDeck();
+            setupScoreMap();
+            dealMultiple(2);
+            alreadySetUp = true;
+        }
     }
+
+//    public HashMap<Rank,Integer> getScoreMap() {
+//        return scoreMap;
+//    }
 
 //    public void setupDeck() {
 //        super.setupDeck(); //default 52
@@ -49,13 +58,13 @@ public class Blackjack extends Game {
         scoreMap.put(StandardRank.KING, 10);
     }
 
-    @Override
-    public void play() {
-        super.play();
-        setupScoreMap();
-        System.out.println(scoreMap.get(StandardRank.THREE));
-        System.out.println(deck.getNumberOfCards());
-    }
+//    @Override
+//    public void play() {
+//        super.play();
+//        setupScoreMap();
+//        System.out.println(scoreMap.get(StandardRank.THREE));
+//        System.out.println(deck.getNumberOfCards());
+//    }
 
 //    public ArrayList<Player> getPlayers() {
 //        return players;

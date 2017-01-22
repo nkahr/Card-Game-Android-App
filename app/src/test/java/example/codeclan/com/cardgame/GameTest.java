@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -33,7 +34,7 @@ public class GameTest {
         cards.add(aceOfSpades);
         cards.add(queenOfDiamonds);
         hand = new CardCollection(cards);
-        player = new Player("Nina", hand);
+        player = new Player("Nina");
         dealer = new Player("Dealer");
         players = new ArrayList<>();
         players.add(player);
@@ -76,16 +77,19 @@ public class GameTest {
 //    }
 
     @Test
-    public void canDeal() {
-        game.setupDeck();
-        game.deal();
+    public void canSetUpGame() {
+        game.setupGame();
+        assertNotNull(game.getScoreMap());
+        assertEquals(48, game.getDeck().getNumberOfCards());
         CardCollection playersHand = players.get(0).getHand();
         int numberOfCardsInHand = playersHand.getNumberOfCards();
-        assertEquals(3, numberOfCardsInHand);
+        assertEquals(2, numberOfCardsInHand);
         CardCollection dealersHand = players.get(1).getHand();
-        int numberOfCardsInDealersHand = playersHand.getNumberOfCards();
-        assertEquals(3, numberOfCardsInDealersHand);
+        int numberOfCardsInDealersHand = dealersHand.getNumberOfCards();
+        assertEquals(2, numberOfCardsInDealersHand);
 
     }
+
+
 
 }

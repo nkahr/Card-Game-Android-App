@@ -13,6 +13,8 @@ public abstract class Game {
     protected CardCollection deck;
     protected HashMap<Rank, Integer> scoreMap;
 
+    public abstract void setupGame();
+
     public Game(ArrayList<Player> players) {
         this.players = players;
         this.deck = new CardCollection();
@@ -76,9 +78,8 @@ public abstract class Game {
         return scoreMap;
     }
 
-    public void play() {
-        setupDeck();
-
-    }
+//    public void play() {
+//        setupDeck();
+//    }
 
 }

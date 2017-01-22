@@ -4,4 +4,5 @@
     <string name="play_blackjack_button_text">Play Blackjack</string>
     <string name="deal_text">DEAL</string>
     <string name="blackjack_screen_name">BLACKJACK</string>
+    <string name="enter_player_name_text">Enter Player Name:</string>
 </resources>

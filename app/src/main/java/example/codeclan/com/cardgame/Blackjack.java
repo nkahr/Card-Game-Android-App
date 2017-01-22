@@ -57,13 +57,13 @@ public class Blackjack extends Game {
         System.out.println(deck.getNumberOfCards());
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
+//    public ArrayList<Player> getPlayers() {
+//        return players;
+//    }
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
+//    public void setPlayers(ArrayList<Player> players) {
+//        this.players = players;
+//    }
 
 
 

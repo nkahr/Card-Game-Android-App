@@ -35,6 +35,10 @@ public class CardCollection {
         cards.add(card);
     }
 
+    public Card removeFirstCard() {
+        return cards.remove(0);
+    }
+
     public void shuffle() {
         Collections.shuffle(cards);
     }

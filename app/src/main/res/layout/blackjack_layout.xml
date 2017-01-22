@@ -3,12 +3,43 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/your_cards_text_view_id"
+        android:textSize="30sp"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <Button
-        android:id="@+id/initial_deal_button"
+        android:id="@+id/initial_deal_button_id"
         android:text="@string/deal_text"
         android:onClick="onInitialDealButtonPressed"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/initial_card_1_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginLeft="3dp"
+        android:src="@drawable/ace_of_spades" />
+
+    <ImageView
+        android:id="@+id/initial_card_2_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginLeft="3dp"
+        android:src="@drawable/queen_of_clubs" />
+
 </LinearLayout>

@@ -26,8 +26,31 @@ public abstract class Game {
     }
     //abstract methods
 //    public abstract void play();
-    public abstract ArrayList<Player> getPlayers();
-    public abstract void setPlayers(ArrayList<Player> players);
+//    public abstract ArrayList<Player> getPlayers();
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    private void deal() {
+        for (Player player : players) {
+            Card cardFromDeck = deck.removeFirstCard();
+            player.addCardToHand(cardFromDeck);
+        }
+    }
+
+    public void dealMultiple(int numberOfCards) {
+        for (int i = 0; i < numberOfCards; i++) {
+            deal();
+        }
+    }
+
+
+//    public abstract void setPlayers(ArrayList<Player> players);
 //    public abstract void setupScoreMap();
 
     //make default implementation to create standard deck, can be overridden
@@ -36,7 +59,8 @@ public abstract class Game {
         Card card;
         for (Rank rank : StandardRank.values()) {
             for (Suit suit : StandardSuit.values()) {
-                card = new Card(rank, suit);
+                String imgLink = rank.toString().toLowerCase() + "_of_" + suit.toString().toLowerCase();
+                card = new Card(rank, suit, imgLink);
                 deck.addCard(card);
             }
         }

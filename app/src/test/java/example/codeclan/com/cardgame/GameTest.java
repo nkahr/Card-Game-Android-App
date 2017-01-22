@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
  */
 public class GameTest {
 
+    //tests for methods in abstract game class
+
     Card aceOfSpades;
     Card queenOfDiamonds;
     ArrayList<Card> cards = new ArrayList<>();
@@ -42,6 +44,7 @@ public class GameTest {
 
     @Test
     public void canGetPlayers() {
+        assertEquals(players, blackjackgame.getPlayers());
         assertEquals(players, game.getPlayers());
     }
 
@@ -65,11 +68,24 @@ public class GameTest {
 //        assertEquals(2, (int) blackjackgame.getScoreMap().get(StandardRank.TWO));
 //    }
 
+//    @Test
+//    public void canPlayBlackjack() {
+//        game.play();
+////        Integer four = new Integer(4);
+////        assertEquals(four, game.getScoreMap().get(StandardRank.FOUR));
+//    }
+
     @Test
-    public void canPlayBlackjack() {
-        game.play();
-//        Integer four = new Integer(4);
-//        assertEquals(four, game.getScoreMap().get(StandardRank.FOUR));
+    public void canDeal() {
+        game.setupDeck();
+        game.deal();
+        CardCollection playersHand = players.get(0).getHand();
+        int numberOfCardsInHand = playersHand.getNumberOfCards();
+        assertEquals(3, numberOfCardsInHand);
+        CardCollection dealersHand = players.get(1).getHand();
+        int numberOfCardsInDealersHand = playersHand.getNumberOfCards();
+        assertEquals(3, numberOfCardsInDealersHand);
+
     }
 
 }

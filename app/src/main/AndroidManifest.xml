@@ -8,6 +8,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/main_screen_name">
+            <!--put intent filter in here-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".BlackjackActivity"
+            android:label="@string/blackjack_screen_name">
+            <!--put intent filter in here-->
+
+        </activity>
+
     </application>
 
 </manifest>

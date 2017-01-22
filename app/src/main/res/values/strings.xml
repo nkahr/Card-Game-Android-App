@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CardGame</string>
+    <string name="main_screen_name">Card Game App</string>
+    <string name="play_blackjack_button_text">Play Blackjack</string>
+    <string name="deal_text">DEAL</string>
+    <string name="blackjack_screen_name">BLACKJACK</string>
 </resources>

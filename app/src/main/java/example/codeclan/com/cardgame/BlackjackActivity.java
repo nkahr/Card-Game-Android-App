@@ -127,12 +127,14 @@ public class BlackjackActivity extends AppCompatActivity{
         // get id of potential card image
         Resources res = getResources();
         System.out.println("potential_card_" + playerCardCount + "_id");
-        int potentialCardId = res.getIdentifier("potential_card_" + playerCardCount + "_id", "id", getPackageName());
-//        potentialCard = (ImageView) findViewById(potentialCardId);
-//
-//        potentialCardImageId = getResources().getIdentifier(dealer.getHand().getCards().get(playerCardCount - 1).getImgLink(), "drawable", this.getPackageName());
-//        potentialCard.setImageResource(potentialCardImageId);
-//        potentialCard.setVisibility(View.VISIBLE);
+        int potentialCardId = res.getIdentifier("potential_card_" + playerCardCount + "_id", "id", this.getPackageName());
+        System.out.println(potentialCardId);
+        potentialCard = (ImageView) findViewById(potentialCardId);
+
+        potentialCardImageId = getResources().getIdentifier(player.getHand().getCards().get(playerCardCount - 1).getImgLink(), "drawable", this.getPackageName());
+        System.out.println(potentialCardImageId);
+        potentialCard.setImageResource(potentialCardImageId);
+        potentialCard.setVisibility(View.VISIBLE);
 
 
 
@@ -147,6 +149,9 @@ public class BlackjackActivity extends AppCompatActivity{
             dealerscore = game.getScore(dealer);
         }
         Player winner = game.checkForWinner();
+        if (winner == null) {
+            whoWonTextView.setText("Dealer scored " + dealerscore + ", Player scored " + playerscore + ". Nobody wins!");
+        }
         if (winner == player) {
             whoWonTextView.setText("Dealer scored " + dealerscore + ". Player wins with " + playerscore + ".");
         } else {

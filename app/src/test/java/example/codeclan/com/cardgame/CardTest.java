@@ -57,6 +57,10 @@ public class CardTest {
         assertEquals("hi I link to an image", card.getImgLink());
     }
 
-
+    @Test
+    public void canSetPoints() {
+        card.setPoints(25);
+        assertEquals(25, card.getPoints());
+    }
 
 }

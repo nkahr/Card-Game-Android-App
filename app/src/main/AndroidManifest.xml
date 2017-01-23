@@ -20,7 +20,8 @@
 
         <activity
             android:name=".BlackjackActivity"
-            android:label="@string/blackjack_screen_name">
+            android:label="@string/blackjack_screen_name"
+            android:parentActivityName=".MainActivity">
             <!--put intent filter in here-->
 
         </activity>

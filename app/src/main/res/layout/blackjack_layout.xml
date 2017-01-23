@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/your_cards_text_view_id"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -15,9 +15,9 @@
         android:id="@+id/initial_deal_button_id"
         android:text="@string/deal_text"
         android:onClick="onInitialDealButtonPressed"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -55,7 +55,7 @@
         android:id="@+id/potential_card_3_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:adjustViewBounds="true"
         android:maxWidth="50dp"
         android:maxHeight="50dp"
@@ -68,7 +68,7 @@
         android:id="@+id/potential_card_4_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:adjustViewBounds="true"
         android:maxWidth="50dp"
         android:maxHeight="50dp"
@@ -82,7 +82,7 @@
         android:id="@+id/potential_card_5_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:adjustViewBounds="true"
         android:maxWidth="50dp"
         android:maxHeight="50dp"
@@ -96,7 +96,7 @@
         android:id="@+id/potential_card_6_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:adjustViewBounds="true"
         android:maxWidth="50dp"
         android:maxHeight="50dp"

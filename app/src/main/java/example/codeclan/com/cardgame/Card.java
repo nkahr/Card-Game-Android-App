@@ -9,6 +9,7 @@ public class Card {
     private Rank rank;
     private Suit suit;
     private String imgLink;
+    private int points;
 
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
@@ -20,6 +21,14 @@ public class Card {
         this.rank = rank;
         this.suit = suit;
         this.imgLink = imgLink;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public Suit getSuit() {

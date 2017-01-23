@@ -17,7 +17,9 @@ import java.util.ArrayList;
  * Created by user on 22/01/2017.
  */
 
-public class BlackjackActivity extends AppCompatActivity{
+public class BlackjackActivity extends AppCompatActivity {
+
+    BlackjackRules blackjackRules;
 
     Button initialDealButton;
     TextView pressDealTextView;
@@ -39,7 +41,7 @@ public class BlackjackActivity extends AppCompatActivity{
     Button hitButton;
     Button stickButton;
 
-//  //potential cards
+    //  //potential cards
     ImageView potentialCard;
     int potentialCardImageId;
 
@@ -59,8 +61,8 @@ public class BlackjackActivity extends AppCompatActivity{
         whoWonTextView = (TextView) findViewById(R.id.who_won_text_view_id);
 
         // create hit/stick button variables in order to make them invisible
-        hitButton = (Button)findViewById(R.id.hit_button_id);
-        stickButton = (Button)findViewById(R.id.stick_button_id);
+        hitButton = (Button) findViewById(R.id.hit_button_id);
+        stickButton = (Button) findViewById(R.id.stick_button_id);
         hitButton.setVisibility(View.INVISIBLE);
         stickButton.setVisibility(View.INVISIBLE);
 
@@ -79,12 +81,17 @@ public class BlackjackActivity extends AppCompatActivity{
         players.add(player);
         players.add(dealer);
         game = new Blackjack(players);
-        game.setupGame();
+        blackjackRules = (BlackjackRules) game.getRules();
+
     }
 
     public void onInitialDealButtonPressed(View view) {
 
         Log.d(getClass().toString(), "\n\ndeal button was clicked\n\n");
+
+        game.setupGame();
+        game.dealMultiple(2);
+
 
 //        System.out.println(game.getPlayers().size());
 //        game.dealMultiple(2);
@@ -110,10 +117,17 @@ public class BlackjackActivity extends AppCompatActivity{
         secondCardImageView.setVisibility(View.VISIBLE);
         dealerFaceUp.setVisibility(View.VISIBLE);
         dealerFaceDown.setVisibility(View.VISIBLE);
-        initialDealButton.setVisibility(View.INVISIBLE);
-        pressDealTextView.setVisibility(View.INVISIBLE);
-        hitButton.setVisibility(View.VISIBLE);
-        stickButton.setVisibility(View.VISIBLE);
+        initialDealButton.setVisibility(View.GONE);
+        pressDealTextView.setVisibility(View.GONE);
+
+        if (blackjackRules.isGameOver(game)) {
+            String whoWonString = blackjackRules.findWinner(game);
+            whoWonTextView.setText(whoWonString);
+            whoWonTextView.setVisibility(View.VISIBLE);
+        } else {
+            hitButton.setVisibility(View.VISIBLE);
+            stickButton.setVisibility(View.VISIBLE);
+        }
 
         Log.d(getClass().toString(), "player: " + player.getHand().getCards().get(0).getRank() +
                 " and " + player.getHand().getCards().get(1).getRank());
@@ -136,27 +150,45 @@ public class BlackjackActivity extends AppCompatActivity{
         potentialCard.setImageResource(potentialCardImageId);
         potentialCard.setVisibility(View.VISIBLE);
 
+        boolean isGameOver = blackjackRules.isGameOver(game);
+        if (isGameOver) {
+            if (blackjackRules.getPlayersScore(player) > 21) {
+                blackjackRules.dealerPlays(game);
+                blackjackRules.isGameOver(game);
+                hitButton.setVisibility(View.INVISIBLE);
+                stickButton.setVisibility(View.INVISIBLE);
+                String whoWonString = blackjackRules.findWinner(game);
+                whoWonTextView.setText(whoWonString);
+                whoWonTextView.setVisibility(View.VISIBLE);
+            }
 
+
+            if (blackjackRules.getPlayersScore(player) == 21) {
+                blackjackRules.dealerPlays(game);
+                blackjackRules.isGameOver(game);
+                hitButton.setVisibility(View.INVISIBLE);
+                stickButton.setVisibility(View.INVISIBLE);
+                String whoWonString = blackjackRules.findWinner(game);
+                whoWonTextView.setText(whoWonString);
+                whoWonTextView.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
 
     public void onStickButtonPressed(View view) {
-        int dealerscore = game.getScore(dealer);
-        int playerscore = game.getScore(player);
 
-        if (dealerscore < 17) {
-            game.dealCardToPlayer(dealer);
-            dealerscore = game.getScore(dealer);
-        }
-        Player winner = game.checkForWinner();
-        if (winner == null) {
-            whoWonTextView.setText("Dealer scored " + dealerscore + ", Player scored " + playerscore + ". Nobody wins!");
-        }
-        if (winner == player) {
-            whoWonTextView.setText("Dealer scored " + dealerscore + ". Player wins with " + playerscore + ".");
-        } else {
-            whoWonTextView.setText("Player scored " + playerscore + ". Dealer wins with " + dealerscore + ".");
-        }
+
+        blackjackRules.dealerPlays(game);
+
+        blackjackRules.isGameOver(game);
+
+        hitButton.setVisibility(View.INVISIBLE);
+        stickButton.setVisibility(View.INVISIBLE);
+        String whoWonString = blackjackRules.findWinner(game);
+        whoWonTextView.setText(whoWonString);
+        whoWonTextView.setVisibility(View.VISIBLE);
 
     }
 }
+

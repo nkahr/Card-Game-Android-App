@@ -14,6 +14,7 @@ public abstract class Game {
     protected HashMap<Rank, Integer> scoreMap;
 
     public abstract void setupGame();
+    public abstract int getScore(Player player);
 
     public Game(ArrayList<Player> players) {
         this.players = players;

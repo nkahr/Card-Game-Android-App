@@ -1,6 +1,7 @@
 package example.codeclan.com.cardgame;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class BlackjackActivity extends AppCompatActivity{
 
     Button initialDealButton;
-    TextView yourCardsTextView;
+    TextView pressDealTextView;
     String playerName;
     Game game;
     Player player;
@@ -28,12 +29,19 @@ public class BlackjackActivity extends AppCompatActivity{
     ImageView secondCardImageView;
     TextView playerComment;
     TextView dealerComment;
+    TextView whoWonTextView;
+
+    int playerCardCount;
 
     ImageView dealerFaceDown;
     ImageView dealerFaceUp;
 
     Button hitButton;
     Button stickButton;
+
+//  //potential cards
+    ImageView potentialCard;
+    int potentialCardImageId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,10 @@ public class BlackjackActivity extends AppCompatActivity{
 
         //both of these should show up immediately in the blackjack activity
         initialDealButton = (Button) findViewById(R.id.initial_deal_button_id);
-        yourCardsTextView = (TextView) findViewById(R.id.your_cards_text_view_id);
+        pressDealTextView = (TextView) findViewById(R.id.your_cards_text_view_id);
+
+        //winner text view
+        whoWonTextView = (TextView) findViewById(R.id.who_won_text_view_id);
 
         // create hit/stick button variables in order to make them invisible
         hitButton = (Button)findViewById(R.id.hit_button_id);
@@ -59,7 +70,7 @@ public class BlackjackActivity extends AppCompatActivity{
         playerName = extras.getString("player_name");
 
         //set textview to greet the player using the name passed by the intent
-        yourCardsTextView.setText("Hi " + playerName + ", press 'deal' to start a game of blackjack.");
+        pressDealTextView.setText("Hi " + playerName + ", press 'deal' to start a game of blackjack.");
 
         //create a game object
         dealer = new Player("Dealer");
@@ -100,7 +111,7 @@ public class BlackjackActivity extends AppCompatActivity{
         dealerFaceUp.setVisibility(View.VISIBLE);
         dealerFaceDown.setVisibility(View.VISIBLE);
         initialDealButton.setVisibility(View.INVISIBLE);
-        yourCardsTextView.setVisibility(View.INVISIBLE);
+        pressDealTextView.setVisibility(View.INVISIBLE);
         hitButton.setVisibility(View.VISIBLE);
         stickButton.setVisibility(View.VISIBLE);
 
@@ -108,16 +119,39 @@ public class BlackjackActivity extends AppCompatActivity{
                 " and " + player.getHand().getCards().get(1).getRank());
         Log.d(getClass().toString(), "dealer: " + dealer.getHand().getCards().get(0).getRank() +
                 " and " + dealer.getHand().getCards().get(1).getRank());
-
     }
 
     public void onHitButtonPressed(View view) {
         game.dealCardToPlayer(player);
+        playerCardCount = player.getHand().getNumberOfCards();
+        // get id of potential card image
+        Resources res = getResources();
+        System.out.println("potential_card_" + playerCardCount + "_id");
+        int potentialCardId = res.getIdentifier("potential_card_" + playerCardCount + "_id", "id", getPackageName());
+//        potentialCard = (ImageView) findViewById(potentialCardId);
+//
+//        potentialCardImageId = getResources().getIdentifier(dealer.getHand().getCards().get(playerCardCount - 1).getImgLink(), "drawable", this.getPackageName());
+//        potentialCard.setImageResource(potentialCardImageId);
+//        potentialCard.setVisibility(View.VISIBLE);
+
 
 
     }
 
     public void onStickButtonPressed(View view) {
-        game.checkForWinner();
+        int dealerscore = game.getScore(dealer);
+        int playerscore = game.getScore(player);
+
+        if (dealerscore < 17) {
+            game.dealCardToPlayer(dealer);
+            dealerscore = game.getScore(dealer);
+        }
+        Player winner = game.checkForWinner();
+        if (winner == player) {
+            whoWonTextView.setText("Dealer scored " + dealerscore + ". Player wins with " + playerscore + ".");
+        } else {
+            whoWonTextView.setText("Player scored " + playerscore + ". Dealer wins with " + dealerscore + ".");
+        }
+
     }
 }

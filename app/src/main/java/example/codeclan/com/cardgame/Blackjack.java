@@ -14,28 +14,17 @@ public class Blackjack extends Game {
     private boolean alreadySetUp;
     private Player player;
     private Player dealer;
-//    private int playerScore;
-//    private int dealerScore;
-//    private ArrayList<Player> players;
-//    private CardCollection deck;
-//    private HashMap<Rank, Integer> scoreMap = new HashMap<>();
-
 
     public Blackjack(ArrayList<Player> players) {
         super(players);
         player = players.get(0);
         dealer = players.get(1);
-//        playerScore = 0;
-//        dealerScore = 0;
     }
 
     public Blackjack() {
         super();
         player = players.get(0);
         dealer = players.get(1);
-//        playerScore = 0;
-//        dealerScore = 0;
-//        this.players = new ArrayList<>();
     }
 
     public void setupGame() {
@@ -78,26 +67,10 @@ public class Blackjack extends Game {
         return null;
     }
 
-
-//    @Override
-//    protected void deal() {
-//        super.deal();
-//        updateScores();
-//    }
-//
-//    @Override
-//    protected void dealMultiple(int numberOfCards) {
-//        super.dealMultiple(numberOfCards);
-//        updateScores();
-//    }
-
-//    public HashMap<Rank,Integer> getScoreMap() {
-//        return scoreMap;
-//    }
-
-//    public void setupDeck() {
-//        super.setupDeck(); //default 52
-//    }
+    public int getScore(Player player) {
+        HashMap<Player, Integer> playerScoresMap = getPlayerScores();
+        return playerScoresMap.get(player);
+    }
 
     private void setupScoreMap() {
         scoreMap.put(StandardRank.ACE, 11);
@@ -115,32 +88,12 @@ public class Blackjack extends Game {
         scoreMap.put(StandardRank.KING, 10);
     }
 
-//    public void updateScores() {
-//
-//        for (Card card : player.getHand().getCards()) {
-//            playerScore += scoreMap.get(card.getRank());
-//        }
-//        for (Card card : dealer.getHand().getCards()) {
-//            dealerScore += scoreMap.get(card.getRank());
-//        }
-//    }
-
-//    @Override
-//    public void play() {
-//        super.play();
-//        setupScoreMap();
-//        System.out.println(scoreMap.get(StandardRank.THREE));
-//        System.out.println(deck.getNumberOfCards());
-//    }
-
-//    public ArrayList<Player> getPlayers() {
-//        return players;
-//    }
-
-//    public void setPlayers(ArrayList<Player> players) {
-//        this.players = players;
-//    }
-
-
+    //only allow to hit if score is less than 21
+    @Override
+    public void dealCardToPlayer(Player player) {
+        if (getScore(player) < 21){
+            super.dealCardToPlayer(player);
+        }
+    }
 
 }

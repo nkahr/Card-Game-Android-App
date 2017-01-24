@@ -33,7 +33,16 @@ public class MainActivity extends AppCompatActivity{
 
     //listener
     public void onBlackjackButtonPressed(View view) {
-        playBlackjackIntent.putExtra("player_name", playerNameEditTextView.getText().toString());
+        String playerName = playerNameEditTextView.getText().toString();
+
+        String savedName = SavedNamePreferences.getSavedName(this);
+        if (savedName != null && !savedName.isEmpty()) {
+            playerName = savedName;
+        } else {
+            SavedNamePreferences.setSavedName(this,playerName);
+        }
+
+        playBlackjackIntent.putExtra("player_name", playerName);
         startActivity(playBlackjackIntent);
         Log.d(getClass().toString(), "onBlackjackButtonPressed was called.");
     }

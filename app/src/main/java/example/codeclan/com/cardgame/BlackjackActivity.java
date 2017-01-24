@@ -67,6 +67,8 @@ public class BlackjackActivity extends AppCompatActivity {
         //get intent to get player name
         Intent playBlackjackIntent = getIntent();
         Bundle extras = playBlackjackIntent.getExtras();
+
+
         playerName = extras.getString("player_name");
 
         //set textview to greet the player using the name passed by the intent

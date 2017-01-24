@@ -14,6 +14,7 @@ public class Blackjack extends Game {
     private boolean alreadySetUp;
     private Player player;
     private Player dealer;
+//    private Rules rules;
 //
 
 
@@ -33,7 +34,15 @@ public class Blackjack extends Game {
     }
 
 
+    public void takeTurn() {
+        BlackjackRules blackjackRules = (BlackjackRules) rules;
+        int dealerScore = blackjackRules.getPlayersScore(dealer);
 
+        while (dealerScore < 17) {
+            dealCardToPlayer(dealer);
+            dealerScore = blackjackRules.getPlayersScore(dealer);
+        }
+    }
 
 
 

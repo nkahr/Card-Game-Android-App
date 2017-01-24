@@ -11,6 +11,7 @@ public class Player {
     private String name;
     private CardCollection hand;
     private int score;
+    private int funds;
 
     public Player(String name, CardCollection hand) {
         this.name = name;
@@ -36,6 +37,14 @@ public class Player {
 
     public void addCardToHand(Card card) {
         hand.addCard(card);
+    }
+
+    public int getFunds() {
+        return funds;
+    }
+
+    public void changeFunds(int amount) {
+        this.funds += amount;
     }
 
     public int getScore() {

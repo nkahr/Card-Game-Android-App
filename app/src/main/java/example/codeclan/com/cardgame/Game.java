@@ -22,6 +22,7 @@ public abstract class Game {
     }
 
     public abstract void setupGame();
+    public abstract void takeTurn();
 
 
     public Rules getRules() {

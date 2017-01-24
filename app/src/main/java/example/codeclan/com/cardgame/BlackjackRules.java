@@ -9,10 +9,9 @@ import java.util.HashMap;
 
 public class BlackjackRules implements Rules {
 
-    //make default implementation to create standard deck, can be overridden
 
     //used in deck setup method
-    private HashMap<Rank,Integer> setupPointsMap() {
+    public HashMap<Rank,Integer> setupPointsMap() {
         HashMap<Rank,Integer> pointsMap = new HashMap<>();
 
         pointsMap.put(StandardRank.ACE, 11);
@@ -50,31 +49,6 @@ public class BlackjackRules implements Rules {
         return deck;
     }
 
-    //make hashmap with player's scores
-//    public ArrayList<Integer> getPlayersScores(Game game) {
-//        ArrayList<Integer> playersScores = new ArrayList<>();
-//        Player player = game.getPlayers().get(0);
-//        Player dealer = game.getPlayers().get(1);
-//        int playerScore = 0;
-//        int dealerScore = 0;
-//
-//        for (Card card : player.getHand().getCards()) {
-//            playerScore += card.getPoints();
-//        }
-//        playersScores.add(playerScore);
-//
-//        for (Card card : dealer.getHand().getCards()) {
-//            dealerScore += card.getPoints();
-//        }
-//        playersScores.add(dealerScore);
-//
-//        return playersScores;
-//
-//    }
-
-
-
-
 
     public int getPlayersScore(Player player) {
         int playerScore = 0;
@@ -87,8 +61,6 @@ public class BlackjackRules implements Rules {
     }
 
 
-
-
     public void changeAcePointsIfFound(Player player) {
         for (Card card : player.getHand().getCards()) {
             if (card.getRank() == StandardRank.ACE) {
@@ -98,15 +70,15 @@ public class BlackjackRules implements Rules {
     }
 
     //check whether anyone has 21 or over (ends game)
-    public boolean isGameOver(Game game) {
-//        ArrayList<Integer> playersScores = getPlayersScores(game);
-
-        Player player = game.getPlayers().get(0);
-        Player dealer = game.getPlayers().get(1);
+    public boolean isGameOver(ArrayList<Player> players) {
+        System.out.println("beginning of isGameOver");
+        Player player = players.get(0);
+        Player dealer = players.get(1);
 
         int playerScore = getPlayersScore(player);
         int dealerScore = getPlayersScore(dealer);
 
+        System.out.println("middle of isGameOver");
 
         if (playerScore > 21) {
             changeAcePointsIfFound(player);
@@ -121,15 +93,17 @@ public class BlackjackRules implements Rules {
         if (playerScore >= 21 || dealerScore >= 21) {
             return true;
         }
+        System.out.println("end of isGameOver");
+
         return false;
     }
 
 
     //should be called when isGameOver == true or after player sticks and dealer finishes his round?
-    public String findWinner(Game game) {
+    public String findWinner(ArrayList<Player> players) {
 
-        Player player = game.getPlayers().get(0);
-        Player dealer = game.getPlayers().get(1);
+        Player player = players.get(0);
+        Player dealer = players.get(1);
 
         int playerScore = getPlayersScore(player);
         int dealerScore = getPlayersScore(dealer);
@@ -141,10 +115,10 @@ public class BlackjackRules implements Rules {
             return "You draw with " + playerScore;
         }
         if (dealerScore > 21) {
-            return "Dealer busts with " + dealerScore + " points. Player wins with " + playerScore + ".";
+            return "Dealer scores " + dealerScore + " and busts. Player wins with " + playerScore + ".";
         }
         if (playerScore > 21){
-            return "Player busts with " + playerScore + " points. Dealer wins with " + dealerScore + ".";
+            return "Player scores " + playerScore + " and busts. Dealer wins with " + dealerScore + ".";
         }
 
         if (playerScore > dealerScore) {
@@ -158,15 +132,16 @@ public class BlackjackRules implements Rules {
         return "ERROR";
     }
 
-    public void dealerPlays(Game game) {
-        Player dealer = game.getPlayers().get(1);
-
-        int dealerScore = getPlayersScore(dealer);
-
-        while (dealerScore < 17) {
-            game.dealCardToPlayer(dealer);
-            dealerScore = getPlayersScore(dealer);
-        }
-    }
+//    public void dealerPlays(Game game) {
+//
+//        Player dealer = game.getPlayers().get(1);
+//
+//        int dealerScore = getPlayersScore(dealer);
+//
+//        while (dealerScore < 17) {
+//            game.dealCardToPlayer(dealer);
+//            dealerScore = getPlayersScore(dealer);
+//        }
+//    }
 
 }

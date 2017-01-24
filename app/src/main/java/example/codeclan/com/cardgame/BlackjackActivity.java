@@ -1,16 +1,15 @@
 package example.codeclan.com.cardgame;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 /**
@@ -19,19 +18,19 @@ import java.util.ArrayList;
 
 public class BlackjackActivity extends AppCompatActivity {
 
-    BlackjackRules blackjackRules;
 
+    BlackjackRules blackjackRules;
     Button initialDealButton;
     TextView pressDealTextView;
     String playerName;
     Game game;
     Player player;
     Player dealer;
+    ArrayList<Player> players;
     ImageView firstCardImageView;
     ImageView secondCardImageView;
-    TextView playerComment;
-    TextView dealerComment;
     TextView whoWonTextView;
+//    ImageView dynamicImageView;
 
     int playerCardCount;
 
@@ -49,8 +48,7 @@ public class BlackjackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blackjack_layout); //set content view - still not sure what this does
-
-
+//
         Log.d(getClass().toString(), "\n\nonCreate was called in blackjack activity\n\n");
 
         //both of these should show up immediately in the blackjack activity
@@ -77,12 +75,11 @@ public class BlackjackActivity extends AppCompatActivity {
         //create a game object
         dealer = new Player("Dealer");
         player = new Player(playerName);
-        ArrayList<Player> players = new ArrayList<>();
+        players = new ArrayList<>();
         players.add(player);
         players.add(dealer);
         game = new Blackjack(players);
         blackjackRules = (BlackjackRules) game.getRules();
-
     }
 
     public void onInitialDealButtonPressed(View view) {
@@ -91,10 +88,6 @@ public class BlackjackActivity extends AppCompatActivity {
 
         game.setupGame();
         game.dealMultiple(2);
-
-
-//        System.out.println(game.getPlayers().size());
-//        game.dealMultiple(2);
 
         // get image id for the three images that will then be applied to the ImageViews
         int imageId1 = getResources().getIdentifier(player.getHand().getCards().get(0).getImgLink(), "drawable", this.getPackageName());
@@ -120,8 +113,11 @@ public class BlackjackActivity extends AppCompatActivity {
         initialDealButton.setVisibility(View.GONE);
         pressDealTextView.setVisibility(View.GONE);
 
-        if (blackjackRules.isGameOver(game)) {
-            String whoWonString = blackjackRules.findWinner(game);
+        Log.d(getClass().toString(), "\n\nbefore if statement\n\n");
+
+
+        if (blackjackRules.isGameOver(players)) {
+            String whoWonString = blackjackRules.findWinner(players);
             whoWonTextView.setText(whoWonString);
             whoWonTextView.setVisibility(View.VISIBLE);
         } else {
@@ -135,6 +131,8 @@ public class BlackjackActivity extends AppCompatActivity {
                 " and " + dealer.getHand().getCards().get(1).getRank());
     }
 
+
+
     public void onHitButtonPressed(View view) {
         game.dealCardToPlayer(player);
         playerCardCount = player.getHand().getNumberOfCards();
@@ -145,30 +143,32 @@ public class BlackjackActivity extends AppCompatActivity {
         System.out.println(potentialCardId);
         potentialCard = (ImageView) findViewById(potentialCardId);
 
+
         potentialCardImageId = getResources().getIdentifier(player.getHand().getCards().get(playerCardCount - 1).getImgLink(), "drawable", this.getPackageName());
         System.out.println(potentialCardImageId);
         potentialCard.setImageResource(potentialCardImageId);
         potentialCard.setVisibility(View.VISIBLE);
 
-        boolean isGameOver = blackjackRules.isGameOver(game);
+        boolean isGameOver = blackjackRules.isGameOver(players);
+        System.out.println(isGameOver);
         if (isGameOver) {
             if (blackjackRules.getPlayersScore(player) > 21) {
-                blackjackRules.dealerPlays(game);
-                blackjackRules.isGameOver(game);
-                hitButton.setVisibility(View.INVISIBLE);
-                stickButton.setVisibility(View.INVISIBLE);
-                String whoWonString = blackjackRules.findWinner(game);
+                game.takeTurn();
+                blackjackRules.isGameOver(players);
+                hitButton.setVisibility(View.GONE);
+                stickButton.setVisibility(View.GONE);
+                String whoWonString = blackjackRules.findWinner(players);
                 whoWonTextView.setText(whoWonString);
                 whoWonTextView.setVisibility(View.VISIBLE);
             }
 
 
             if (blackjackRules.getPlayersScore(player) == 21) {
-                blackjackRules.dealerPlays(game);
-                blackjackRules.isGameOver(game);
+                game.takeTurn();
+                blackjackRules.isGameOver(players);
                 hitButton.setVisibility(View.INVISIBLE);
                 stickButton.setVisibility(View.INVISIBLE);
-                String whoWonString = blackjackRules.findWinner(game);
+                String whoWonString = blackjackRules.findWinner(players);
                 whoWonTextView.setText(whoWonString);
                 whoWonTextView.setVisibility(View.VISIBLE);
             }
@@ -178,14 +178,13 @@ public class BlackjackActivity extends AppCompatActivity {
 
     public void onStickButtonPressed(View view) {
 
+        game.takeTurn();
 
-        blackjackRules.dealerPlays(game);
-
-        blackjackRules.isGameOver(game);
+        blackjackRules.isGameOver(players);
 
         hitButton.setVisibility(View.INVISIBLE);
         stickButton.setVisibility(View.INVISIBLE);
-        String whoWonString = blackjackRules.findWinner(game);
+        String whoWonString = blackjackRules.findWinner(players);
         whoWonTextView.setText(whoWonString);
         whoWonTextView.setVisibility(View.VISIBLE);
 

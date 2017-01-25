@@ -29,6 +29,9 @@ public class NewPlayerActivity extends AppCompatActivity {
         playerNameEditTextView = (EditText) findViewById(R.id.enter_player_name_id);
         addNewPlayer = (Button)findViewById(R.id.new_player_button_id);
         //name and funds of current player
+
+
+        //current name and funds
         savedName = SavedNamePreferences.getSavedName(this);
         savedFunds = SavedNamePreferences.getSavedFunds(this);
 
@@ -38,14 +41,34 @@ public class NewPlayerActivity extends AppCompatActivity {
     }
 
     public void onNewPlayerButtonPressed(View view) {
-        if (savedName != null && !savedName.isEmpty()) {
-            //should save player and funds in savedprefs
-            SavedNamePreferences.setArchivedPlayer(this, savedName, savedFunds);
+
+
+        newPlayerName = playerNameEditTextView.getText().toString(); //input name
+
+
+        //don't do anything if name stayed the same
+        if (savedName != newPlayerName) {
+
+            //archive current player if exists
+            if (savedName != null && !savedName.isEmpty()) {
+                SavedNamePreferences.setArchivedPlayer(this, savedName, savedFunds);
+            }
+
+            boolean doesUserExist = SavedNamePreferences.getArchivedPlayer(this, newPlayerName) != null;
+
+            if (doesUserExist) {
+                SavedNamePreferences.setSavedName(this, newPlayerName);
+                String archivedFunds = SavedNamePreferences.getArchivedPlayer(this, newPlayerName);
+                SavedNamePreferences.setSavedFunds(this, archivedFunds);
+            } else {
+                SavedNamePreferences.setSavedName(this, newPlayerName);
+                SavedNamePreferences.setSavedFunds(this, "300"); //default funds
+            }
         }
 
-        newPlayerName = playerNameEditTextView.getText().toString();
-        SavedNamePreferences.setSavedName(this, newPlayerName);
-        SavedNamePreferences.setSavedFunds(this, "300");
+        Intent goToWelcomePage= new Intent(NewPlayerActivity.this, MainActivity.class);
+        startActivity(goToWelcomePage);
+
     }
 
 

@@ -12,4 +12,14 @@
     <string name="winner_screen_name">Winner</string>
     <string name="enter_amount">Place a bet:</string>
     <string name="change_player_button_text">Change Player</string>
+    <string name="change_user_string">Change User</string>
+    <string name="pay_in_string">Add Funds</string>
+    <string name="pay_in_button_text">Pay In</string>
+    <string name="amount_to_pay_in_text">Amount to pay in:</string>
+    <string name="pay_in_screen_name">Pay In</string>
+    <string name="cash_out_screen_name">Cash Out</string>
+    <string name="insufficient_funds_text">Insufficient Funds</string>
+    <string name="amount_to_cash_out_text">Amount to cash out:</string>
+    <string name="cash_out_button_text">Cash Out</string>
+    <string name="cash_out_string">Cash Out</string>
 </resources>

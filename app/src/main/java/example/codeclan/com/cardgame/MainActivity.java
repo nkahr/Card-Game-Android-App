@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,4 +67,36 @@ public class MainActivity extends AppCompatActivity{
         startActivity(changePlayerIntent);
         Log.d(getClass().toString(), "onBlackjackButtonPressed was called.");
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_layout, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.change_user_menu_item_id) {
+            startActivity(changePlayerIntent);
+            return true;
+
+        } else if (item.getItemId() == R.id.pay_in_menu_item_id) {
+            Intent payInIntent = new Intent(MainActivity.this, PayInActivity.class);
+            startActivity(payInIntent);
+            return true;
+
+        } else if (item.getItemId() == R.id.cash_out_menu_item_id) {
+            Intent cashOutIntent = new Intent(MainActivity.this, CashOutActivity.class);
+            startActivity(cashOutIntent);
+            return true;
+
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+
+    }
 }
+
+//Toast.makeText(MainActivity.this, R.string.menu_toast_hello, Toast.LENGTH_SHORT).show();

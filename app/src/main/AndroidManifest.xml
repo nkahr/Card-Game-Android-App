@@ -35,8 +35,24 @@
         </activity>
 
         <activity
-            android:name=".WinnerActivity"
-            android:label="@string/winner_screen_name"
+        android:name=".WinnerActivity"
+        android:label="@string/winner_screen_name"
+        android:parentActivityName=".MainActivity">
+        <!--put intent filter in here-->
+
+    </activity>
+
+        <activity
+            android:name=".PayInActivity"
+            android:label="@string/pay_in_screen_name"
+            android:parentActivityName=".MainActivity">
+            <!--put intent filter in here-->
+
+        </activity>
+
+        <activity
+            android:name=".CashOutActivity"
+            android:label="@string/cash_out_screen_name"
             android:parentActivityName=".MainActivity">
             <!--put intent filter in here-->
 

@@ -1,8 +1,6 @@
 package example.codeclan.com.cardgame;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,7 +31,7 @@ public class BlackjackActivity extends AppCompatActivity {
 //    TextView whoWonTextView;
     TextView playerFundsTextView;
     int playerFunds;
-    int bet_amount_int;
+    int betAmountInt;
     String whoWonString;
 //    ImageView dynamicImageView;
     String fundsString;
@@ -73,8 +71,13 @@ public class BlackjackActivity extends AppCompatActivity {
         //get intent to get player name
         Intent playBlackjackIntent = getIntent();
         Bundle extras = playBlackjackIntent.getExtras();
-        bet_amount_int = Integer.parseInt(extras.getString("bet_placed_string"));
-
+        String betAmountStr = extras.getString("bet_placed_string");
+        String emptyString = "";
+        if (betAmountStr.equals(emptyString)) {
+            betAmountInt = 0;
+        } else {
+            betAmountInt = Integer.parseInt(betAmountStr);
+        }
 
         //use savedprefs to get playername
         playerName = SavedNamePreferences.getSavedName(this);
@@ -146,7 +149,7 @@ public class BlackjackActivity extends AppCompatActivity {
         if (blackjackRules.isGameOver(players)) {
 
             //MAKE A METHOD CONTAINING ALL THIS
-            whoWonString = blackjackRules.findWinner(players, bet_amount_int);
+            whoWonString = blackjackRules.findWinner(players, betAmountInt);
             int updatedFunds = player.getFunds();
             SavedNamePreferences.setSavedFunds(this, Integer.toString(updatedFunds));
             getWinnerIntent.putExtra("winner_string", whoWonString);
@@ -192,7 +195,7 @@ public class BlackjackActivity extends AppCompatActivity {
                 blackjackRules.isGameOver(players);
                 hitButton.setVisibility(View.GONE);
                 stickButton.setVisibility(View.GONE);
-                whoWonString = blackjackRules.findWinner(players, bet_amount_int);
+                whoWonString = blackjackRules.findWinner(players, betAmountInt);
 
                 //get rid of this
 //                whoWonTextView.setText(whoWonString);
@@ -229,7 +232,7 @@ public class BlackjackActivity extends AppCompatActivity {
         hitButton.setVisibility(View.INVISIBLE);
         stickButton.setVisibility(View.INVISIBLE);
 
-        whoWonString = blackjackRules.findWinner(players, bet_amount_int);
+        whoWonString = blackjackRules.findWinner(players, betAmountInt);
 
         //get rid of this
 //        whoWonTextView.setText(whoWonString);

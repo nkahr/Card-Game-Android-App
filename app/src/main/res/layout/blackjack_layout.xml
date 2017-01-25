@@ -141,6 +141,71 @@
         android:layout_marginLeft="3dp"
         android:src="@drawable/ace_of_spades" />
 
+        <ImageView
+            android:id="@+id/potential_card_7_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:adjustViewBounds="true"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ace_of_spades" />
+
+        <ImageView
+            android:id="@+id/potential_card_8_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:adjustViewBounds="true"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ace_of_spades" />
+
+        <ImageView
+            android:id="@+id/potential_card_9_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:adjustViewBounds="true"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ace_of_spades" />
+
+        <ImageView
+            android:id="@+id/potential_card_10_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:adjustViewBounds="true"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ace_of_spades" />
+
+        <ImageView
+            android:id="@+id/potential_card_11_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:adjustViewBounds="true"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ace_of_spades" />
+
 
     </LinearLayout>
 

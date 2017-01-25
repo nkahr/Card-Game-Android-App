@@ -63,7 +63,13 @@ public class BlackjackRules implements Rules {
 
     public void changeAcePointsIfFound(Player player) {
         for (Card card : player.getHand().getCards()) {
+
+            if (getPlayersScore(player) <= 21) {
+                return;
+            }
+
             if (card.getRank() == StandardRank.ACE) {
+
                 card.setPoints(1);
             }
         }

@@ -97,6 +97,11 @@ public class MainActivity extends AppCompatActivity{
             startActivity(instructionsIntent);
             return true;
 
+        } else if (item.getItemId() == R.id.player_stats_menu_item_id) {
+            Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+            startActivity(profileIntent);
+            return true;
+
         } else {
             return super.onOptionsItemSelected(item);
         }

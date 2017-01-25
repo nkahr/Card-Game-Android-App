@@ -27,4 +27,5 @@
     <string name="instructions_text">Some shit about how blackjack works</string>
     <string name="home_button_text">Go back</string>
     <string name="profile_screen_name">Profile</string>
+    <string name="player_stats_string">Player Stats</string>
 </resources>

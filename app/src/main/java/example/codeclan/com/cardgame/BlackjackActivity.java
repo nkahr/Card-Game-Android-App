@@ -36,6 +36,9 @@ public class BlackjackActivity extends AppCompatActivity {
 //    ImageView dynamicImageView;
     String fundsString;
     int playerCardCount;
+    int initialFunds;
+    int updatedFunds;
+    String savedStatString;
 
     ImageView dealerFaceDown;
     ImageView dealerFaceUp;
@@ -100,7 +103,7 @@ public class BlackjackActivity extends AppCompatActivity {
         players.add(dealer);
         game = new Blackjack(players);
         blackjackRules = (BlackjackRules) game.getRules();
-
+        initialFunds = player.getFunds();
         //funds at top of page
         String fundsString = "Funds: " + Integer.toString(player.getFunds());
         playerFundsTextView.setText(fundsString);
@@ -150,12 +153,32 @@ public class BlackjackActivity extends AppCompatActivity {
 
             //MAKE A METHOD CONTAINING ALL THIS
             whoWonString = blackjackRules.findWinner(players, betAmountInt);
-            int updatedFunds = player.getFunds();
+            updatedFunds = player.getFunds();
             SavedNamePreferences.setSavedFunds(this, Integer.toString(updatedFunds));
             getWinnerIntent.putExtra("winner_string", whoWonString);
 
-//            whoWonTextView.setText(whoWonString);
-//            whoWonTextView.setVisibility(View.VISIBLE);
+
+            int changeInFunds = updatedFunds - initialFunds;
+
+            if (changeInFunds < 0) {
+                savedStatString = "Loss: " + changeInFunds;
+            } else if (changeInFunds == 0) {
+                savedStatString = "Draw.";
+            } else {
+                savedStatString = "Win: " + changeInFunds;
+            }
+
+            ArrayList<String> stringsArray = SavedNamePreferences.getPlayerStats(this, player.getName());
+            if (stringsArray == null) {
+                stringsArray = new ArrayList<>();
+                stringsArray.add(savedStatString);
+            } else {
+                stringsArray.add(savedStatString);
+            }
+
+            SavedNamePreferences.setPlayerStats(this, stringsArray, player.getName());
+
+
             startActivity(getWinnerIntent);
 
 
@@ -197,13 +220,37 @@ public class BlackjackActivity extends AppCompatActivity {
                 stickButton.setVisibility(View.GONE);
                 whoWonString = blackjackRules.findWinner(players, betAmountInt);
 
-                //get rid of this
-//                whoWonTextView.setText(whoWonString);
-//                whoWonTextView.setVisibility(View.VISIBLE);
-
-                int updatedFunds = player.getFunds();
+                updatedFunds = player.getFunds();
                 SavedNamePreferences.setSavedFunds(this, Integer.toString(updatedFunds));
                 getWinnerIntent.putExtra("winner_string", whoWonString);
+
+
+                int changeInFunds = updatedFunds - initialFunds;
+
+                if (changeInFunds < 0) {
+                    savedStatString = "Loss: " + changeInFunds;
+                } else if (changeInFunds == 0) {
+                    savedStatString = "Draw.";
+                } else {
+                    savedStatString = "Win: " + changeInFunds;
+                }
+
+                ArrayList<String> stringsArray = SavedNamePreferences.getPlayerStats(this, player.getName());
+                if (stringsArray == null) {
+                    stringsArray = new ArrayList<>();
+                    stringsArray.add(savedStatString);
+                } else {
+                    stringsArray.add(savedStatString);
+                }
+
+                SavedNamePreferences.setPlayerStats(this, stringsArray, player.getName());
+
+
+
+
+
+
+
                 startActivity(getWinnerIntent);
 
 
@@ -238,9 +285,30 @@ public class BlackjackActivity extends AppCompatActivity {
 //        whoWonTextView.setText(whoWonString);
 //        whoWonTextView.setVisibility(View.VISIBLE);
 
-        int updatedFunds = player.getFunds();
+        updatedFunds = player.getFunds();
         SavedNamePreferences.setSavedFunds(this, Integer.toString(updatedFunds));
         getWinnerIntent.putExtra("winner_string", whoWonString);
+
+        int changeInFunds = updatedFunds - initialFunds;
+
+        if (changeInFunds < 0) {
+            savedStatString = "Loss: " + changeInFunds;
+        } else if (changeInFunds == 0) {
+            savedStatString = "Draw.";
+        } else {
+            savedStatString = "Win: " + changeInFunds;
+        }
+
+        ArrayList<String> stringsArray = SavedNamePreferences.getPlayerStats(this, player.getName());
+        if (stringsArray == null) {
+            stringsArray = new ArrayList<>();
+            stringsArray.add(savedStatString);
+        } else {
+            stringsArray.add(savedStatString);
+        }
+
+        SavedNamePreferences.setPlayerStats(this, stringsArray, player.getName());
+
         startActivity(getWinnerIntent);
 
     }

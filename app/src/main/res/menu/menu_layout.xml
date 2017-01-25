@@ -8,4 +8,6 @@
         android:title="@string/cash_out_string"/>
     <item android:id="@+id/instructions_menu_item_id"
         android:title="@string/instructions_string"/>
+    <item android:id="@+id/player_stats_menu_item_id"
+        android:title="@string/profile_screen_name"/>
 </menu>

@@ -71,14 +71,11 @@ public class BlackjackRules implements Rules {
 
     //check whether anyone has 21 or over (ends game)
     public boolean isGameOver(ArrayList<Player> players) {
-        System.out.println("beginning of isGameOver");
         Player player = players.get(0);
         Player dealer = players.get(1);
 
         int playerScore = getPlayersScore(player);
         int dealerScore = getPlayersScore(dealer);
-
-        System.out.println("middle of isGameOver");
 
         if (playerScore > 21) {
             changeAcePointsIfFound(player);
@@ -93,7 +90,6 @@ public class BlackjackRules implements Rules {
         if (playerScore >= 21 || dealerScore >= 21) {
             return true;
         }
-        System.out.println("end of isGameOver");
 
         return false;
     }
@@ -108,18 +104,19 @@ public class BlackjackRules implements Rules {
         int playerScore = getPlayersScore(player);
         int dealerScore = getPlayersScore(dealer);
 
-        if (playerScore > 21 && dealerScore > 21) {
-            return "Dealer scored " + dealerScore + ", Player scored " + playerScore + ". Both bust!";
+        if (playerScore > 21) { // && dealerScore > 21
+//            return "Dealer scored " + dealerScore + ", Player scored " + playerScore + ". Both bust!";
+            return "You score " + playerScore + " points and bust!";
         }
         if (playerScore == dealerScore){
-            return "You draw with " + playerScore;
+            return "You draw with " + playerScore + " points!";
         }
         if (dealerScore > 21) {
             return "Dealer scores " + dealerScore + " and busts. Player wins with " + playerScore + ".";
         }
-        if (playerScore > 21){
-            return "Player scores " + playerScore + " and busts. Dealer wins with " + dealerScore + ".";
-        }
+//        if (playerScore > 21){
+//            return "Player scores " + playerScore + " and busts. Dealer wins with " + dealerScore + ".";
+//        }
 
         if (playerScore > dealerScore) {
             return "Dealer scored " + dealerScore + ". Player wins with " + playerScore + ".";

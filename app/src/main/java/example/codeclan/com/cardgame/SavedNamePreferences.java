@@ -40,6 +40,19 @@ public class SavedNamePreferences{
         return sharedPreferences.getString(SAVEDFUNDS, null);
     }
 
+    //key value pair of name and funds
+    public static void setArchivedPlayer(Context context, String name, String amount) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(name, amount);
+        editor.apply();
+    }
+
+    public static String getArchivedPlayer(Context context, String name) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(name, null);
+    }
+
 
 }
 

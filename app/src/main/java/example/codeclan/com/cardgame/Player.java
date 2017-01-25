@@ -54,4 +54,8 @@ public class Player {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public void setFunds(int funds) {
+        this.funds = funds;
+    }
 }

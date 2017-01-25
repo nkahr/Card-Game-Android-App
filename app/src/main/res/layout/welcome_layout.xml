@@ -3,19 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/enter_player_name_id"
-        android:hint="@string/enter_player_name_text"
+    <TextView
+        android:id="@+id/welcome_text_id"
         android:textSize="30sp"
-        android:layout_marginTop="50dp"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 
     <Button
         android:id="@+id/play_blackjack_button_id"
         android:text="@string/play_blackjack_button_text"
         android:onClick="onBlackjackButtonPressed"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/change_player_button_id"
+        android:text="@string/play_blackjack_button_text"
+        android:onClick="onChangePlayerButtonPressed"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"

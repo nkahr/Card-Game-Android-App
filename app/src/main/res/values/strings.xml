@@ -7,4 +7,6 @@
     <string name="enter_player_name_text">Enter Player Name:</string>
     <string name="hit_text">HIT</string>
     <string name="stick_text">STICK</string>
+    <string name="new_player_button_text">Create new Player</string>
+    <string name="new_player_screen_name">New Player</string>
 </resources>

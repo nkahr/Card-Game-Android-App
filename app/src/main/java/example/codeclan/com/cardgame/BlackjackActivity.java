@@ -30,6 +30,8 @@ public class BlackjackActivity extends AppCompatActivity {
     ImageView firstCardImageView;
     ImageView secondCardImageView;
     TextView whoWonTextView;
+    TextView playerFundsTextView;
+    int playerFunds;
 //    ImageView dynamicImageView;
 
     int playerCardCount;
@@ -54,6 +56,7 @@ public class BlackjackActivity extends AppCompatActivity {
         //both of these should show up immediately in the blackjack activity
         initialDealButton = (Button) findViewById(R.id.initial_deal_button_id);
         pressDealTextView = (TextView) findViewById(R.id.your_cards_text_view_id);
+        playerFundsTextView = (TextView)findViewById(R.id.player_funds_text_view_id);
 
         //winner text view
         whoWonTextView = (TextView) findViewById(R.id.who_won_text_view_id);
@@ -65,23 +68,33 @@ public class BlackjackActivity extends AppCompatActivity {
         stickButton.setVisibility(View.INVISIBLE);
 
         //get intent to get player name
-        Intent playBlackjackIntent = getIntent();
-        Bundle extras = playBlackjackIntent.getExtras();
+//        Intent playBlackjackIntent = getIntent();
+//        Bundle extras = playBlackjackIntent.getExtras();
+//        playerName = extras.getString("player_name");
 
 
-        playerName = extras.getString("player_name");
-
+        //use savedprefs to get playername
+        playerName = SavedNamePreferences.getSavedName(this);
         //set textview to greet the player using the name passed by the intent
         pressDealTextView.setText("Hi " + playerName + ", press 'deal' to start a game of blackjack.");
-
         //create a game object
         dealer = new Player("Dealer");
         player = new Player(playerName);
+
+
+        //get funds from sharedprefs and set them in player object
+        playerFunds = Integer.parseInt(SavedNamePreferences.getSavedFunds(this));
+        player.setFunds(playerFunds);
+
+
+
+
         players = new ArrayList<>();
         players.add(player);
         players.add(dealer);
         game = new Blackjack(players);
         blackjackRules = (BlackjackRules) game.getRules();
+        playerFundsTextView.setText(player.getFunds());
     }
 
     public void onInitialDealButtonPressed(View view) {

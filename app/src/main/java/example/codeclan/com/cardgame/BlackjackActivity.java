@@ -25,7 +25,9 @@ public class BlackjackActivity extends AppCompatActivity {
     TextView playerFundsTextView, playersCardsTextView, dealersCardsTextView, currentScoreTextView;//pressDealTextView
     String whoWonString, savedStatString, playerName, playersCardsString, currentScoreString;
     int playerCardCount, initialFunds, updatedFunds, changeInFunds, betAmountInt, playerFunds, potentialCardImageId;
-    int sizeOfImage = 250;
+//    int sizeOfImage = 300;
+    int heightOfImage = 200;
+    int widthOfImage = 320;
     ImageView dealerFaceDown, dealerFaceUp, potentialCard, firstCardImageView, secondCardImageView;
     Button hitButton, stickButton, initialDealButton;
     LinearLayout linearLayoutDealButton;
@@ -119,10 +121,10 @@ public class BlackjackActivity extends AppCompatActivity {
         dealerFaceUp.setImageResource(dealerImageId);
 
         //change visibility of things (make cards visible and deal button invisible)
-        firstCardImageView.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
-        secondCardImageView.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
-        dealerFaceUp.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
-        dealerFaceDown.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
+        firstCardImageView.setLayoutParams(new LinearLayout.LayoutParams(heightOfImage, widthOfImage));
+        secondCardImageView.setLayoutParams(new LinearLayout.LayoutParams(heightOfImage, widthOfImage));
+        dealerFaceUp.setLayoutParams(new LinearLayout.LayoutParams(heightOfImage, widthOfImage));
+        dealerFaceDown.setLayoutParams(new LinearLayout.LayoutParams(heightOfImage, widthOfImage));
 
         //make text
         playersCardsString = playerName + "'s Cards:";
@@ -176,7 +178,7 @@ public class BlackjackActivity extends AppCompatActivity {
         potentialCard.setImageResource(potentialCardImageId);
         potentialCard.setVisibility(View.VISIBLE);
 
-        potentialCard.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
+        potentialCard.setLayoutParams(new LinearLayout.LayoutParams(heightOfImage, widthOfImage));
 
 
         boolean isGameOver = blackjackRules.isGameOver(players);

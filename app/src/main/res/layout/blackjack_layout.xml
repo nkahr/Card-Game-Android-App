@@ -2,16 +2,14 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/felt"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_height="68dp"
         android:orientation="horizontal" >
     <!--android:background="#999"-->
 
@@ -26,6 +24,7 @@
             android:id="@+id/player_funds_text_view_id"
             android:textSize="30sp"
             android:text=""
+            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 </LinearLayout>
@@ -53,8 +52,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_height="56dp"
         android:orientation="horizontal" >
         <!--android:background="#999"-->
 
@@ -63,6 +61,7 @@
             android:id="@+id/players_cards_text_view_id"
             android:textSize="30sp"
             android:text=""
+            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -232,6 +231,7 @@
             android:id="@+id/current_score_text_view_id"
             android:textSize="30sp"
             android:text=""
+            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -241,8 +241,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_height="59dp"
         android:orientation="horizontal" >
         <!--android:background="#999"-->
 
@@ -252,6 +251,7 @@
             android:textSize="30sp"
             android:text="@string/dealers_cards_text"
             android:visibility="gone"
+            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -332,6 +332,7 @@
         android:id="@+id/who_won_text_view_id"
         android:textSize="30sp"
         android:text=""
+        android:textColor="#ffffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

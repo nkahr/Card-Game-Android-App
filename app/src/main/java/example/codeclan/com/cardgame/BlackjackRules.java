@@ -91,10 +91,10 @@ public class BlackjackRules implements Rules {
                 if (card.getRank() == StandardRank.ACE) {
 
                     card.setPoints(1);
-
-                    if (getPlayersScore(player) <= 21) {
-                        return;
-                    }
+                    return;
+//                    if (getPlayersScore(player) <= 21) {
+//                        return;
+//                    }
                 }
             }
         }
@@ -108,21 +108,27 @@ public class BlackjackRules implements Rules {
         int playerScore = getPlayersScore(player);
         int dealerScore = getPlayersScore(dealer);
 
-        if (playerScore > 21) {
-//            changeAcePointsIfFound(player);
-            playerScore = getPlayersScore(player);
-        }
-
-        if (dealerScore > 21) {
-//            changeAcePointsIfFound(dealer);
-            dealerScore = getPlayersScore(dealer);
-        }
-
         if (playerScore >= 21 || dealerScore >= 21) {
             return true;
         }
-
         return false;
+
+
+//        if (playerScore > 21) {
+////            changeAcePointsIfFound(player);
+//            playerScore = getPlayersScore(player);
+//        }
+//
+//        if (dealerScore > 21) {
+////            changeAcePointsIfFound(dealer);
+//            dealerScore = getPlayersScore(dealer);
+//        }
+//
+//        if (playerScore >= 21 || dealerScore >= 21) {
+//            return true;
+//        }
+
+//        return false;
     }
 
 

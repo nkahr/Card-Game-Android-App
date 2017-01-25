@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity{
         String playerName = SavedNamePreferences.getSavedName(this);
         String playerFunds = SavedNamePreferences.getSavedFunds(this);
         ArrayList<String> statStrings= SavedNamePreferences.getPlayerStats(this, playerName);
-        nameTextView.setText("Player: " + playerName);
+        nameTextView.setText(playerName);
         fundsTextView.setText("Funds: " + playerFunds);
 
         String printedString = "";

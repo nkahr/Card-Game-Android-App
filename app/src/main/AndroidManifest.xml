@@ -66,6 +66,14 @@
 
         </activity>
 
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/profile_screen_name"
+            android:parentActivityName=".MainActivity">
+            <!--put intent filter in here-->
+
+        </activity>
+
     </application>
 
 </manifest>

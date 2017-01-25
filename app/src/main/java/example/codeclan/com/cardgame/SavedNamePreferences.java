@@ -9,6 +9,10 @@ import android.content.SharedPreferences;
 
 import android.preference.PreferenceManager;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class SavedNamePreferences{
 
@@ -53,6 +57,31 @@ public class SavedNamePreferences{
         return sharedPreferences.getString(name, null);
     }
 
+
+    public static void setPlayerStats(Context context, ArrayList<String> strings, String playerName) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = prefs.edit();
+
+        Set<String> statsSet = new HashSet<>(strings);
+        statsSet.addAll(strings);
+        String keyName = playerName + "_stats";
+        edit.putStringSet(keyName, statsSet);
+        edit.commit();
+    }
+
+
+
+    public static ArrayList<String> getPlayerStats(Context context, String playerName) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String keyName = playerName + "_stats";
+
+        Set<String> statsSet = prefs.getStringSet(keyName, null);
+        if (statsSet == null) {
+            return null;
+        }
+        return new ArrayList<>(statsSet);
+    }
 
 
 //    public boolean saveArray(String[] array, String arrayName, Context mContext) {

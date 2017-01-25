@@ -50,7 +50,7 @@ public class BlackjackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.blackjack_layout); //set content view - still not sure what this does
+        setContentView(R.layout.blackjack_layout);
 //
         Log.d(getClass().toString(), "\n\nonCreate was called in blackjack activity\n\n");
 

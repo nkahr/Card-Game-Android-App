@@ -96,7 +96,7 @@ public class BlackjackRules implements Rules {
 
 
     //should be called when isGameOver == true or after player sticks and dealer finishes his round?
-    public String findWinner(ArrayList<Player> players) {
+    public String findWinner(ArrayList<Player> players, int bet) {
 
         Player player = players.get(0);
         Player dealer = players.get(1);
@@ -106,12 +106,14 @@ public class BlackjackRules implements Rules {
 
         if (playerScore > 21) { // && dealerScore > 21
 //            return "Dealer scored " + dealerScore + ", Player scored " + playerScore + ". Both bust!";
+            player.changeFunds(-bet);
             return "You score " + playerScore + " points and bust!";
         }
         if (playerScore == dealerScore){
             return "You draw with " + playerScore + " points!";
         }
         if (dealerScore > 21) {
+            player.changeFunds(bet);
             return "Dealer scores " + dealerScore + " and busts. Player wins with " + playerScore + ".";
         }
 //        if (playerScore > 21){
@@ -119,10 +121,13 @@ public class BlackjackRules implements Rules {
 //        }
 
         if (playerScore > dealerScore) {
+            player.changeFunds(bet);
+
             return "Dealer scored " + dealerScore + ". Player wins with " + playerScore + ".";
         }
 
         if (dealerScore > playerScore) {
+            player.changeFunds(-bet);
             return "Player scored " + playerScore + ". Dealer wins with " + dealerScore + ".";
 
         }

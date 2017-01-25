@@ -20,6 +20,7 @@ public class BlackjackActivity extends AppCompatActivity {
 
 
     BlackjackRules blackjackRules;
+    Intent getWinnerIntent;
     Button initialDealButton;
     TextView pressDealTextView;
     String playerName;
@@ -29,11 +30,13 @@ public class BlackjackActivity extends AppCompatActivity {
     ArrayList<Player> players;
     ImageView firstCardImageView;
     ImageView secondCardImageView;
-    TextView whoWonTextView;
+//    TextView whoWonTextView;
     TextView playerFundsTextView;
     int playerFunds;
+    int bet_amount_int;
+    String whoWonString;
 //    ImageView dynamicImageView;
-
+    String fundsString;
     int playerCardCount;
 
     ImageView dealerFaceDown;
@@ -59,7 +62,7 @@ public class BlackjackActivity extends AppCompatActivity {
         playerFundsTextView = (TextView)findViewById(R.id.player_funds_text_view_id);
 
         //winner text view
-        whoWonTextView = (TextView) findViewById(R.id.who_won_text_view_id);
+//        whoWonTextView = (TextView) findViewById(R.id.who_won_text_view_id);
 
         // create hit/stick button variables in order to make them invisible
         hitButton = (Button) findViewById(R.id.hit_button_id);
@@ -68,9 +71,9 @@ public class BlackjackActivity extends AppCompatActivity {
         stickButton.setVisibility(View.INVISIBLE);
 
         //get intent to get player name
-//        Intent playBlackjackIntent = getIntent();
-//        Bundle extras = playBlackjackIntent.getExtras();
-//        playerName = extras.getString("player_name");
+        Intent playBlackjackIntent = getIntent();
+        Bundle extras = playBlackjackIntent.getExtras();
+        bet_amount_int = Integer.parseInt(extras.getString("bet_placed_string"));
 
 
         //use savedprefs to get playername
@@ -94,15 +97,23 @@ public class BlackjackActivity extends AppCompatActivity {
         players.add(dealer);
         game = new Blackjack(players);
         blackjackRules = (BlackjackRules) game.getRules();
-        playerFundsTextView.setText(player.getFunds());
+
+        //funds at top of page
+        String fundsString = "Funds: " + Integer.toString(player.getFunds());
+        playerFundsTextView.setText(fundsString);
+
+
+        //make new intent --> give it the string that findWinner returns as extras
+        getWinnerIntent = new Intent(BlackjackActivity.this, WinnerActivity.class);
+
     }
 
     public void onInitialDealButtonPressed(View view) {
 
-        Log.d(getClass().toString(), "\n\ndeal button was clicked\n\n");
+        Log.d(getClass().toString(), "deal button was clicked");
 
         game.setupGame();
-        game.dealMultiple(2);
+//        game.dealMultiple(2);
 
         // get image id for the three images that will then be applied to the ImageViews
         int imageId1 = getResources().getIdentifier(player.getHand().getCards().get(0).getImgLink(), "drawable", this.getPackageName());
@@ -128,17 +139,29 @@ public class BlackjackActivity extends AppCompatActivity {
         initialDealButton.setVisibility(View.GONE);
         pressDealTextView.setVisibility(View.GONE);
 
-        Log.d(getClass().toString(), "\n\nbefore if statement\n\n");
+
+
 
 
         if (blackjackRules.isGameOver(players)) {
-            String whoWonString = blackjackRules.findWinner(players);
-            whoWonTextView.setText(whoWonString);
-            whoWonTextView.setVisibility(View.VISIBLE);
+
+            //MAKE A METHOD CONTAINING ALL THIS
+            whoWonString = blackjackRules.findWinner(players, bet_amount_int);
+            int updatedFunds = player.getFunds();
+            SavedNamePreferences.setSavedFunds(this, Integer.toString(updatedFunds));
+            getWinnerIntent.putExtra("winner_string", whoWonString);
+
+//            whoWonTextView.setText(whoWonString);
+//            whoWonTextView.setVisibility(View.VISIBLE);
+            startActivity(getWinnerIntent);
+
+
         } else {
             hitButton.setVisibility(View.VISIBLE);
             stickButton.setVisibility(View.VISIBLE);
         }
+
+
 
         Log.d(getClass().toString(), "player: " + player.getHand().getCards().get(0).getRank() +
                 " and " + player.getHand().getCards().get(1).getRank());
@@ -150,43 +173,49 @@ public class BlackjackActivity extends AppCompatActivity {
 
     public void onHitButtonPressed(View view) {
         game.dealCardToPlayer(player);
+        // get id of potential card image & set image & make visible
+
         playerCardCount = player.getHand().getNumberOfCards();
-        // get id of potential card image
-        Resources res = getResources();
-        System.out.println("potential_card_" + playerCardCount + "_id");
-        int potentialCardId = res.getIdentifier("potential_card_" + playerCardCount + "_id", "id", this.getPackageName());
-        System.out.println(potentialCardId);
+        int potentialCardId = getResources().getIdentifier("potential_card_" + playerCardCount + "_id", "id", this.getPackageName());
         potentialCard = (ImageView) findViewById(potentialCardId);
-
-
+        Log.d(getClass().toString(), "potential_card_" + playerCardCount + "_id");
         potentialCardImageId = getResources().getIdentifier(player.getHand().getCards().get(playerCardCount - 1).getImgLink(), "drawable", this.getPackageName());
-        System.out.println(potentialCardImageId);
         potentialCard.setImageResource(potentialCardImageId);
         potentialCard.setVisibility(View.VISIBLE);
+
 
         boolean isGameOver = blackjackRules.isGameOver(players);
         System.out.println(isGameOver);
         if (isGameOver) {
-            if (blackjackRules.getPlayersScore(player) > 21) {
-                game.takeTurn();
+            if (blackjackRules.getPlayersScore(player) >= 21) {
+                game.takeTurn(); //shouldnt take turn if player has already bust
                 blackjackRules.isGameOver(players);
                 hitButton.setVisibility(View.GONE);
                 stickButton.setVisibility(View.GONE);
-                String whoWonString = blackjackRules.findWinner(players);
-                whoWonTextView.setText(whoWonString);
-                whoWonTextView.setVisibility(View.VISIBLE);
-            }
+                whoWonString = blackjackRules.findWinner(players, bet_amount_int);
+
+                //get rid of this
+//                whoWonTextView.setText(whoWonString);
+//                whoWonTextView.setVisibility(View.VISIBLE);
+
+                int updatedFunds = player.getFunds();
+                SavedNamePreferences.setSavedFunds(this, Integer.toString(updatedFunds));
+                getWinnerIntent.putExtra("winner_string", whoWonString);
+                startActivity(getWinnerIntent);
 
 
-            if (blackjackRules.getPlayersScore(player) == 21) {
-                game.takeTurn();
-                blackjackRules.isGameOver(players);
-                hitButton.setVisibility(View.INVISIBLE);
-                stickButton.setVisibility(View.INVISIBLE);
-                String whoWonString = blackjackRules.findWinner(players);
-                whoWonTextView.setText(whoWonString);
-                whoWonTextView.setVisibility(View.VISIBLE);
             }
+
+//
+//            if (blackjackRules.getPlayersScore(player) == 21) {
+//                game.takeTurn();
+//                blackjackRules.isGameOver(players);
+//                hitButton.setVisibility(View.INVISIBLE);
+//                stickButton.setVisibility(View.INVISIBLE);
+//                String whoWonString = blackjackRules.findWinner(players);
+//                whoWonTextView.setText(whoWonString);
+//                whoWonTextView.setVisibility(View.VISIBLE);
+//            }
         }
 
     }
@@ -199,9 +228,17 @@ public class BlackjackActivity extends AppCompatActivity {
 
         hitButton.setVisibility(View.INVISIBLE);
         stickButton.setVisibility(View.INVISIBLE);
-        String whoWonString = blackjackRules.findWinner(players);
-        whoWonTextView.setText(whoWonString);
-        whoWonTextView.setVisibility(View.VISIBLE);
+
+        whoWonString = blackjackRules.findWinner(players, bet_amount_int);
+
+        //get rid of this
+//        whoWonTextView.setText(whoWonString);
+//        whoWonTextView.setVisibility(View.VISIBLE);
+
+        int updatedFunds = player.getFunds();
+        SavedNamePreferences.setSavedFunds(this, Integer.toString(updatedFunds));
+        getWinnerIntent.putExtra("winner_string", whoWonString);
+        startActivity(getWinnerIntent);
 
     }
 }

@@ -9,4 +9,7 @@
     <string name="stick_text">STICK</string>
     <string name="new_player_button_text">Create new Player</string>
     <string name="new_player_screen_name">New Player</string>
+    <string name="winner_screen_name">Winner</string>
+    <string name="enter_amount">Place a bet:</string>
+    <string name="change_player_button_text">Change Player</string>
 </resources>

@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity{
     Intent changePlayerIntent;
     String savedName;
     String playerName;
+    String bet_amount_str;
+    EditText placeBetEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity{
 
         welcomeText = (TextView)findViewById(R.id.welcome_text_id);
         playBlackjackButton = (Button) findViewById(R.id.play_blackjack_button_id);
-//        playerNameEditTextView = (EditText)findViewById(R.id.enter_player_name_id);
+        placeBetEditText = (EditText)findViewById(R.id.place_bet_edit_text_id);
 
         playBlackjackIntent = new Intent(MainActivity.this, BlackjackActivity.class);
         changePlayerIntent = new Intent(MainActivity.this, NewPlayerActivity.class);
@@ -52,9 +54,10 @@ public class MainActivity extends AppCompatActivity{
 
     //listener
     public void onBlackjackButtonPressed(View view) {
-        playBlackjackIntent.putExtra("player_name", playerName);
+        Log.d(getClass().toString(), "onBlackjackButtonPressed was clicked.");
+        bet_amount_str = placeBetEditText.getText().toString();
+        playBlackjackIntent.putExtra("bet_placed_string", bet_amount_str);
         startActivity(playBlackjackIntent);
-        Log.d(getClass().toString(), "onBlackjackButtonPressed was called.");
     }
 
     public void onChangePlayerButtonPressed(View view) {

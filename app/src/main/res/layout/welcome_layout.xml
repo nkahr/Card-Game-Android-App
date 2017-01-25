@@ -10,6 +10,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <EditText
+        android:id="@+id/place_bet_edit_text_id"
+        android:hint="@string/enter_amount"
+        android:inputType="number"
+        android:textSize="30sp"
+        android:layout_marginTop="50dp"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
     <Button
         android:id="@+id/play_blackjack_button_id"
         android:text="@string/play_blackjack_button_text"
@@ -21,7 +32,7 @@
 
     <Button
         android:id="@+id/change_player_button_id"
-        android:text="@string/play_blackjack_button_text"
+        android:text="@string/change_player_button_text"
         android:onClick="onChangePlayerButtonPressed"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"

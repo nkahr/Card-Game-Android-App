@@ -30,6 +30,7 @@ public class Blackjack extends Game {
         if(!alreadySetUp) {
             BlackjackRules blackjackRules = (BlackjackRules) rules;
             deck = blackjackRules.setupDeck(); //make deck with 52 cards
+            dealMultiple(2);
         }
     }
 

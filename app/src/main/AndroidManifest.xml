@@ -34,6 +34,14 @@
 
         </activity>
 
+        <activity
+            android:name=".WinnerActivity"
+            android:label="@string/winner_screen_name"
+            android:parentActivityName=".MainActivity">
+            <!--put intent filter in here-->
+
+        </activity>
+
     </application>
 
 </manifest>

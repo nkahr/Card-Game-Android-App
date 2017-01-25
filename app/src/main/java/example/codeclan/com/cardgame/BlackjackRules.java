@@ -105,9 +105,8 @@ public class BlackjackRules implements Rules {
         int dealerScore = getPlayersScore(dealer);
 
         if (playerScore > 21) { // && dealerScore > 21
-//            return "Dealer scored " + dealerScore + ", Player scored " + playerScore + ". Both bust!";
             player.changeFunds(-bet);
-            return "You score " + playerScore + " points and bust!";
+            return "You bust! " + playerScore + " points.";
         }
         if (playerScore == dealerScore){
             return "You draw with " + playerScore + " points!";
@@ -116,9 +115,6 @@ public class BlackjackRules implements Rules {
             player.changeFunds(bet);
             return "Dealer scores " + dealerScore + " and busts. Player wins with " + playerScore + ".";
         }
-//        if (playerScore > 21){
-//            return "Player scores " + playerScore + " and busts. Dealer wins with " + dealerScore + ".";
-//        }
 
         if (playerScore > dealerScore) {
             player.changeFunds(bet);
@@ -134,16 +130,5 @@ public class BlackjackRules implements Rules {
         return "ERROR";
     }
 
-//    public void dealerPlays(Game game) {
-//
-//        Player dealer = game.getPlayers().get(1);
-//
-//        int dealerScore = getPlayersScore(dealer);
-//
-//        while (dealerScore < 17) {
-//            game.dealCardToPlayer(dealer);
-//            dealerScore = getPlayersScore(dealer);
-//        }
-//    }
 
 }

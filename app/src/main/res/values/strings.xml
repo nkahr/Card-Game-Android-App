@@ -22,4 +22,8 @@
     <string name="amount_to_cash_out_text">Amount to cash out:</string>
     <string name="cash_out_button_text">Cash Out</string>
     <string name="cash_out_string">Cash Out</string>
+    <string name="instructions_string">Instructions</string>
+    <string name="instructions_screen_name">Instructions</string>
+    <string name="instructions_text">Some shit about how blackjack works</string>
+    <string name="home_button_text">Go back</string>
 </resources>

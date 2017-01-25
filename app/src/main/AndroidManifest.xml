@@ -58,6 +58,14 @@
 
         </activity>
 
+        <activity
+            android:name=".InstructionsActivity"
+            android:label="@string/instructions_screen_name"
+            android:parentActivityName=".MainActivity">
+            <!--put intent filter in here-->
+
+        </activity>
+
     </application>
 
 </manifest>

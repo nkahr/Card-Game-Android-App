@@ -92,6 +92,11 @@ public class MainActivity extends AppCompatActivity{
             startActivity(cashOutIntent);
             return true;
 
+        } else if (item.getItemId() == R.id.instructions_menu_item_id) {
+            Intent instructionsIntent = new Intent(MainActivity.this, InstructionsActivity.class);
+            startActivity(instructionsIntent);
+            return true;
+
         } else {
             return super.onOptionsItemSelected(item);
         }

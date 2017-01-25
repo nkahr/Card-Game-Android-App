@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by user on 22/01/2017.
@@ -18,14 +19,16 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity{
 
-    TextView welcomeText;
+    TextView welcomeText, playerFundsTextView;
 //    EditText playerNameEditTextView;
     Button playBlackjackButton;
     Intent playBlackjackIntent;
     Intent changePlayerIntent;
     String savedName;
+    String savedFundsString;
     String playerName;
-    String bet_amount_str;
+    String betAmountStr;
+    int betAmountInt;
     EditText placeBetEditText;
 
     @Override
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_layout);
 
+        playerFundsTextView = (TextView)findViewById(R.id.main_player_funds_text_view_id);
         welcomeText = (TextView)findViewById(R.id.welcome_text_id);
         playBlackjackButton = (Button) findViewById(R.id.play_blackjack_button_id);
         placeBetEditText = (EditText)findViewById(R.id.place_bet_edit_text_id);
@@ -41,6 +45,14 @@ public class MainActivity extends AppCompatActivity{
         changePlayerIntent = new Intent(MainActivity.this, NewPlayerActivity.class);
 
         savedName = SavedNamePreferences.getSavedName(this);
+        savedFundsString = SavedNamePreferences.getSavedFunds(this);
+
+
+        //funds at top of page
+        String fundsString = "Funds: " + savedFundsString;
+        playerFundsTextView.setText(fundsString);
+
+
 
         if (savedName != null && !savedName.isEmpty()) {
             playerName = savedName;
@@ -58,9 +70,14 @@ public class MainActivity extends AppCompatActivity{
     //listener
     public void onBlackjackButtonPressed(View view) {
         Log.d(getClass().toString(), "onBlackjackButtonPressed was clicked.");
-        bet_amount_str = placeBetEditText.getText().toString();
-        playBlackjackIntent.putExtra("bet_placed_string", bet_amount_str);
-        startActivity(playBlackjackIntent);
+        betAmountStr = placeBetEditText.getText().toString();
+//        betAmountInt = Integer.parseInt(betAmountStr);
+        if (!betAmountStr.isEmpty() && Integer.parseInt(betAmountStr) > Integer.parseInt(savedFundsString)) {
+                Toast.makeText(MainActivity.this, R.string.toast_insufficient_funds, Toast.LENGTH_SHORT).show();
+        } else {
+            playBlackjackIntent.putExtra("bet_placed_string", betAmountStr);
+            startActivity(playBlackjackIntent);
+        }
     }
 
     public void onChangePlayerButtonPressed(View view) {
@@ -109,4 +126,3 @@ public class MainActivity extends AppCompatActivity{
     }
 }
 
-//Toast.makeText(MainActivity.this, R.string.menu_toast_hello, Toast.LENGTH_SHORT).show();

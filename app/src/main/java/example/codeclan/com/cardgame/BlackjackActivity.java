@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -21,23 +22,29 @@ public class BlackjackActivity extends AppCompatActivity {
     Game game;
     Player player, dealer;
     ArrayList<Player> players;
-    TextView playerFundsTextView, pressDealTextView;
-    String whoWonString, savedStatString, playerName;
+    TextView playerFundsTextView, playersCardsTextView, dealersCardsTextView, currentScoreTextView;//pressDealTextView
+    String whoWonString, savedStatString, playerName, playersCardsString, currentScoreString;
     int playerCardCount, initialFunds, updatedFunds, changeInFunds, betAmountInt, playerFunds, potentialCardImageId;
+    int sizeOfImage = 250;
     ImageView dealerFaceDown, dealerFaceUp, potentialCard, firstCardImageView, secondCardImageView;
     Button hitButton, stickButton, initialDealButton;
+    LinearLayout linearLayoutDealButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blackjack_layout);
 //
-        Log.d(getClass().toString(), "\n\nonCreate was called in blackjack activity\n\n");
+        Log.d(getClass().toString(), "onCreate was called in blackjack activity");
 
         //both of these should show up immediately in the blackjack activity
         initialDealButton = (Button) findViewById(R.id.initial_deal_button_id);
-        pressDealTextView = (TextView) findViewById(R.id.your_cards_text_view_id);
+//        pressDealTextView = (TextView) findViewById(R.id.your_cards_text_view_id);
         playerFundsTextView = (TextView)findViewById(R.id.player_funds_text_view_id);
+        playersCardsTextView = (TextView)findViewById(R.id.players_cards_text_view_id);
+        dealersCardsTextView = (TextView)findViewById(R.id.dealers_cards_text_view_id);
+        linearLayoutDealButton = (LinearLayout)findViewById(R.id.linear_layout_deal_button_id);
+        currentScoreTextView = (TextView)findViewById(R.id.current_score_text_view_id);
 
         //winner text view
 //        whoWonTextView = (TextView) findViewById(R.id.who_won_text_view_id);
@@ -62,7 +69,7 @@ public class BlackjackActivity extends AppCompatActivity {
         //use savedprefs to get playername
         playerName = SavedNamePreferences.getSavedName(this);
         //set textview to greet the player using the name passed by the intent
-        pressDealTextView.setText("Hi " + playerName + ", press 'deal' to start a game of blackjack.");
+//        pressDealTextView.setText("Hi " + playerName + ", press 'deal' to start a game of blackjack.");
         //create a game object
         dealer = new Player("Dealer");
         player = new Player(playerName);
@@ -93,6 +100,7 @@ public class BlackjackActivity extends AppCompatActivity {
         Log.d(getClass().toString(), "deal button was clicked");
 
         game.setupGame();
+        Log.d(getClass().toString(), "after setup game");
 
         // get image id for the three images that will then be applied to the ImageViews
         int imageId1 = getResources().getIdentifier(player.getHand().getCards().get(0).getImgLink(), "drawable", this.getPackageName());
@@ -111,30 +119,54 @@ public class BlackjackActivity extends AppCompatActivity {
         dealerFaceUp.setImageResource(dealerImageId);
 
         //change visibility of things (make cards visible and deal button invisible)
+        firstCardImageView.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
+        secondCardImageView.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
+        dealerFaceUp.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
+        dealerFaceDown.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
+
+        //make text
+        playersCardsString = playerName + "'s Cards:";
+        playersCardsTextView.setText(playersCardsString);
+        dealersCardsTextView.setVisibility(View.VISIBLE);
+
         firstCardImageView.setVisibility(View.VISIBLE);
         secondCardImageView.setVisibility(View.VISIBLE);
         dealerFaceUp.setVisibility(View.VISIBLE);
         dealerFaceDown.setVisibility(View.VISIBLE);
         initialDealButton.setVisibility(View.GONE);
-        pressDealTextView.setVisibility(View.GONE);
+//        pressDealTextView.setVisibility(View.GONE);
+        linearLayoutDealButton.setVisibility(View.GONE);
+
+        Log.d(getClass().toString(), "before if statement");
+
+
 
         if (blackjackRules.isGameOver(players)) {
             endOfGame();
+            Log.d(getClass().toString(), "is game over? ? ");
 
         } else {
             hitButton.setVisibility(View.VISIBLE);
             stickButton.setVisibility(View.VISIBLE);
         }
 
-        Log.d(getClass().toString(), "player: " + player.getHand().getCards().get(0).getRank() +
-                " and " + player.getHand().getCards().get(1).getRank());
-        Log.d(getClass().toString(), "dealer: " + dealer.getHand().getCards().get(0).getRank() +
-                " and " + dealer.getHand().getCards().get(1).getRank());
+//        Log.d(getClass().toString(), "player: " + player.getHand().getCards().get(0).getRank() +
+//                " and " + player.getHand().getCards().get(1).getRank());
+//        Log.d(getClass().toString(), "dealer: " + dealer.getHand().getCards().get(0).getRank() +
+//                " and " + dealer.getHand().getCards().get(1).getRank());
+
+        Log.d(getClass().toString(), "after if statement");
+
+        currentScoreString = "Score: " + Integer.toString(blackjackRules.getPlayersScore(player));
+        currentScoreTextView.setText(currentScoreString);
     }
 
     public void onHitButtonPressed(View view) {
         game.dealCardToPlayer(player);
         // get id of potential card image & set image & make visible
+
+        currentScoreString = "Score: " + Integer.toString(blackjackRules.getPlayersScore(player));
+        currentScoreTextView.setText(currentScoreString);
 
         playerCardCount = player.getHand().getNumberOfCards();
         int potentialCardId = getResources().getIdentifier("potential_card_" + playerCardCount + "_id", "id", this.getPackageName());
@@ -143,6 +175,9 @@ public class BlackjackActivity extends AppCompatActivity {
         potentialCardImageId = getResources().getIdentifier(player.getHand().getCards().get(playerCardCount - 1).getImgLink(), "drawable", this.getPackageName());
         potentialCard.setImageResource(potentialCardImageId);
         potentialCard.setVisibility(View.VISIBLE);
+
+        potentialCard.setLayoutParams(new LinearLayout.LayoutParams(sizeOfImage, sizeOfImage));
+
 
         boolean isGameOver = blackjackRules.isGameOver(players);
         System.out.println(isGameOver);

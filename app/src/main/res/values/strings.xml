@@ -28,4 +28,6 @@
     <string name="home_button_text">Go back</string>
     <string name="profile_screen_name">Profile</string>
     <string name="player_stats_string">Player Stats</string>
+    <string name="toast_insufficient_funds">Insufficient Funds</string>
+    <string name="dealers_cards_text">Dealer\'s cards:</string>
 </resources>

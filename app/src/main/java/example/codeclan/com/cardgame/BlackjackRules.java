@@ -50,27 +50,52 @@ public class BlackjackRules implements Rules {
     }
 
 
-    public int getPlayersScore(Player player) {
+    public boolean isScoreMoreThan21(Player player) {
         int playerScore = 0;
 
         for (Card card : player.getHand().getCards()) {
             playerScore += card.getPoints();
         }
 
+        if (playerScore > 21) {
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
+
+
+    public int getPlayersScore(Player player) {
+        int playerScore = 0;
+
+        changeAcePointsIfFound(player);
+
+        for (Card card : player.getHand().getCards()) {
+            playerScore += card.getPoints();
+        }
+
+
         return playerScore;
     }
 
 
     public void changeAcePointsIfFound(Player player) {
-        for (Card card : player.getHand().getCards()) {
 
-            if (getPlayersScore(player) <= 21) {
-                return;
-            }
+        if (isScoreMoreThan21(player)) {
+            for (Card card : player.getHand().getCards()) {
 
-            if (card.getRank() == StandardRank.ACE) {
 
-                card.setPoints(1);
+
+                if (card.getRank() == StandardRank.ACE) {
+
+                    card.setPoints(1);
+
+                    if (getPlayersScore(player) <= 21) {
+                        return;
+                    }
+                }
             }
         }
     }
@@ -84,12 +109,12 @@ public class BlackjackRules implements Rules {
         int dealerScore = getPlayersScore(dealer);
 
         if (playerScore > 21) {
-            changeAcePointsIfFound(player);
+//            changeAcePointsIfFound(player);
             playerScore = getPlayersScore(player);
         }
 
         if (dealerScore > 21) {
-            changeAcePointsIfFound(dealer);
+//            changeAcePointsIfFound(dealer);
             dealerScore = getPlayersScore(dealer);
         }
 

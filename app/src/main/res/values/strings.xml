@@ -7,7 +7,7 @@
     <string name="enter_player_name_text">Enter Player Name:</string>
     <string name="hit_text">HIT</string>
     <string name="stick_text">STICK</string>
-    <string name="new_player_button_text">Create new Player</string>
+    <string name="new_player_button_text">SUBMIT</string>
     <string name="new_player_screen_name">New Player</string>
     <string name="winner_screen_name">Winner</string>
     <string name="enter_amount">Place a bet:</string>
@@ -25,7 +25,7 @@
     <string name="instructions_string">Instructions</string>
     <string name="instructions_screen_name">Instructions</string>
     <string name="instructions_text">Some shit about how blackjack works</string>
-    <string name="home_button_text">Go back</string>
+    <string name="home_button_text">BACK</string>
     <string name="profile_screen_name">Profile</string>
     <string name="player_stats_string">Player Stats</string>
     <string name="toast_insufficient_funds">Insufficient Funds</string>

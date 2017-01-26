@@ -25,8 +25,7 @@ public class BlackjackActivity extends AppCompatActivity {
     TextView playerFundsTextView, playersCardsTextView, dealersCardsTextView, currentScoreTextView;//pressDealTextView
     String whoWonString, savedStatString, playerName, playersCardsString, currentScoreString;
     int playerCardCount, initialFunds, updatedFunds, changeInFunds, betAmountInt, playerFunds, potentialCardImageId;
-//    int sizeOfImage = 300;
-    int heightOfImage = 200;
+    int heightOfImage = 200; //height is actually width...
     int widthOfImage = 320;
     ImageView dealerFaceDown, dealerFaceUp, potentialCard, firstCardImageView, secondCardImageView;
     Button hitButton, stickButton, initialDealButton;
@@ -61,8 +60,9 @@ public class BlackjackActivity extends AppCompatActivity {
         Intent playBlackjackIntent = getIntent();
         Bundle extras = playBlackjackIntent.getExtras();
         String betAmountStr = extras.getString("bet_placed_string");
-        String emptyString = "";
-        if (betAmountStr.equals(emptyString)) {
+//        String emptyString = "";
+//        if (betAmountStr.equals(emptyString)) {
+        if (betAmountStr.isEmpty()) {
             betAmountInt = 0;
         } else {
             betAmountInt = Integer.parseInt(betAmountStr);

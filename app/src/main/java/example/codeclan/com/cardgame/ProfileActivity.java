@@ -34,8 +34,10 @@ public class ProfileActivity extends AppCompatActivity{
         fundsTextView.setText("Funds: " + playerFunds);
 
         String printedString = "";
-        for (String item : statStrings) {
-            printedString += item + "\n";
+        if (statStrings != null) {
+            for (String item : statStrings) {
+                printedString += item + "\n";
+            }
         }
         statsTextView.setText(printedString);
 
